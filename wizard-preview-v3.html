@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wizard Avatar V3 — Animated Cards</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b0618;color:#fff;font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 15px;overflow-x:hidden}
+  h1{font-size:1.8rem;color:#ffd700;margin-bottom:6px;text-align:center}
+  .subtitle{color:#a89ec9;font-size:.9rem;margin-bottom:28px;text-align:center}
+  .preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;max-width:1300px;width:100%}
+
+  /* ===== CARD RARITY TIERS ===== */
+  .preview-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;padding:24px;text-align:center;
+    position:relative;overflow:hidden;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .preview-card:hover{transform:translateY(-4px)}
+  .preview-card h3{color:#ffd700;font-size:1rem;margin-bottom:4px;position:relative;z-index:2}
+  .preview-card p{color:#a89ec9;font-size:.8rem;margin-bottom:16px;position:relative;z-index:2}
+  .wizard-stage{width:240px;height:320px;margin:0 auto;position:relative;z-index:2}
+  .wizard-stage svg{width:100%;height:100%}
+
+  /* Common card */
+  .card-common{border-color:rgba(255,255,255,0.12)}
+  .card-common:hover{box-shadow:0 8px 30px rgba(100,216,255,0.1)}
+
+  /* Rare card */
+  .card-rare{
+    border:1px solid rgba(123,79,207,0.3);
+    background:linear-gradient(145deg,rgba(123,79,207,0.05),rgba(255,255,255,0.02));
+  }
+  .card-rare:hover{box-shadow:0 8px 35px rgba(123,79,207,0.15)}
+  .card-rare::before{
+    content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+    background:radial-gradient(circle,rgba(123,79,207,0.06) 0%,transparent 50%);
+    animation:rareGlow 4s ease-in-out infinite;z-index:0;
+  }
+  @keyframes rareGlow{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.8;transform:scale(1.1)}}
+
+  /* Epic card */
+  .card-epic{
+    border:1px solid rgba(199,125,255,0.3);
+    background:linear-gradient(145deg,rgba(199,125,255,0.06),rgba(100,216,255,0.03));
+  }
+  .card-epic:hover{box-shadow:0 8px 40px rgba(199,125,255,0.2)}
+  .card-epic::before{
+    content:'';position:absolute;inset:-2px;border-radius:22px;z-index:0;
+    background:linear-gradient(135deg,rgba(199,125,255,0.2),transparent 40%,transparent 60%,rgba(100,216,255,0.2));
+    animation:epicShine 3s ease-in-out infinite;
+  }
+  .card-epic::after{
+    content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;z-index:1;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent);
+    animation:epicSweep 4s ease-in-out infinite;
+  }
+  @keyframes epicShine{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes epicSweep{0%{left:-100%}50%{left:150%}100%{left:150%}}
+
+  /* Legendary card */
+  .card-legendary{
+    border:2px solid rgba(255,215,0,0.3);
+    background:linear-gradient(145deg,rgba(255,215,0,0.06),rgba(255,140,0,0.03));
+    box-shadow:0 0 20px rgba(255,215,0,0.05);
+  }
+  .card-legendary:hover{box-shadow:0 8px 50px rgba(255,215,0,0.25)}
+  .card-legendary::before{
+    content:'';position:absolute;inset:-2px;border-radius:22px;z-index:0;
+    background:linear-gradient(135deg,rgba(255,215,0,0.25),transparent,rgba(255,215,0,0.25));
+    animation:legendShine 2.5s ease-in-out infinite;
+  }
+  .card-legendary::after{
+    content:'';position:absolute;top:0;left:-80%;width:40%;height:100%;z-index:1;
+    background:linear-gradient(90deg,transparent,rgba(255,215,0,0.08),transparent);
+    animation:legendSweep 3s ease-in-out infinite;
+  }
+  @keyframes legendShine{0%,100%{opacity:.3}50%{opacity:1}}
+  @keyframes legendSweep{0%{left:-80%}100%{left:180%}}
+
+  /* Mythic card */
+  .card-mythic{
+    border:2px solid transparent;
+    background:linear-gradient(145deg,rgba(255,100,200,0.06),rgba(100,100,255,0.04),rgba(54,214,195,0.03));
+    box-shadow:0 0 30px rgba(255,100,200,0.08),0 0 60px rgba(100,100,255,0.05);
+    position:relative;
+  }
+  .card-mythic:hover{box-shadow:0 8px 60px rgba(255,100,200,0.3),0 0 80px rgba(100,100,255,0.15)}
+  .card-mythic>.mythic-border{
+    position:absolute;inset:-3px;border-radius:23px;z-index:0;
+    background:linear-gradient(135deg,#ff6ec7,#7b4fcf,#36d6c3,#ffd700,#ff6ec7);
+    background-size:400% 400%;
+    animation:mythicBorder 4s ease-in-out infinite;
+  }
+  .card-mythic>.mythic-bg{
+    position:absolute;inset:0;border-radius:20px;z-index:1;
+    background:rgba(11,6,24,0.94);
+  }
+  .card-mythic::after{
+    content:'';position:absolute;top:0;left:-60%;width:30%;height:100%;z-index:2;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);
+    animation:mythicSweep 2.5s ease-in-out infinite;
+  }
+  @keyframes mythicBorder{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes mythicSweep{0%{left:-60%}100%{left:160%}}
+
+  /* ===== FLOATING PARTICLES (CSS) ===== */
+  .particles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .particle{
+    position:absolute;border-radius:50%;
+    animation:particleFloat var(--dur,3s) ease-in-out infinite;
+    animation-delay:var(--delay,0s);
+  }
+  @keyframes particleFloat{
+    0%{transform:translateY(0) scale(1);opacity:var(--startOp,0.6)}
+    50%{transform:translateY(var(--drift,-20px)) scale(1.3);opacity:1}
+    100%{transform:translateY(0) scale(1);opacity:var(--startOp,0.6)}
+  }
+  .sparkle-particle{
+    position:absolute;
+    animation:sparkleFloat var(--dur,2.5s) ease-in-out infinite;
+    animation-delay:var(--delay,0s);
+    font-size:var(--size,10px);
+    pointer-events:none;
+  }
+  @keyframes sparkleFloat{
+    0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0.3}
+    50%{transform:translateY(var(--drift,-15px)) rotate(180deg) scale(1.2);opacity:1}
+    100%{transform:translateY(0) rotate(360deg) scale(0.8);opacity:0.3}
+  }
+
+  /* Music notes for headphones */
+  .music-note{
+    position:absolute;font-size:14px;
+    animation:noteFloat 3s ease-out infinite;
+    animation-delay:var(--delay,0s);
+    opacity:0;
+  }
+  @keyframes noteFloat{
+    0%{transform:translateY(0) rotate(0deg);opacity:0}
+    20%{opacity:0.8}
+    100%{transform:translateY(-80px) rotate(20deg) translateX(var(--xdrift,10px));opacity:0}
+  }
+
+  /* Golden rain for legendary */
+  .gold-drop{
+    position:absolute;width:3px;border-radius:2px;
+    background:linear-gradient(180deg,#ffd700,#ffaa00);
+    animation:goldFall var(--dur,2s) linear infinite;
+    animation-delay:var(--delay,0s);
+    opacity:0;
+  }
+  @keyframes goldFall{
+    0%{transform:translateY(-20px);opacity:0}
+    10%{opacity:0.7}
+    90%{opacity:0.5}
+    100%{transform:translateY(350px);opacity:0}
+  }
+
+  /* Mythic aurora waves */
+  .aurora-wave{
+    position:absolute;width:200%;height:60px;left:-50%;
+    border-radius:50%;opacity:0.15;
+    animation:auroraMove var(--dur,6s) ease-in-out infinite;
+    animation-delay:var(--delay,0s);
+  }
+  @keyframes auroraMove{
+    0%{transform:translateX(-10%) translateY(0) scaleX(1);opacity:0.08}
+    50%{transform:translateX(10%) translateY(-10px) scaleX(1.2);opacity:0.2}
+    100%{transform:translateX(-10%) translateY(0) scaleX(1);opacity:0.08}
+  }
+
+  .rarity-tag{
+    display:inline-block;padding:3px 12px;border-radius:20px;font-size:.7rem;
+    font-weight:bold;text-transform:uppercase;letter-spacing:1px;
+    margin-bottom:8px;position:relative;z-index:2;
+  }
+  .rt-common{background:rgba(255,255,255,0.08);color:#a89ec9}
+  .rt-rare{background:rgba(123,79,207,0.15);color:#b89eff}
+  .rt-epic{background:rgba(199,125,255,0.15);color:#d9a8ff}
+  .rt-legendary{background:rgba(255,215,0,0.12);color:#ffd700}
+  .rt-mythic{
+    background:linear-gradient(135deg,rgba(255,100,200,0.15),rgba(100,100,255,0.15));
+    color:#ff9de0;
+    animation:mythicTagPulse 2s ease-in-out infinite;
+  }
+  @keyframes mythicTagPulse{0%,100%{color:#ff9de0}33%{color:#9db4ff}66%{color:#ffd700}}
+
+  .note{color:#a89ec9;font-size:.75rem;margin-top:8px;font-style:italic;position:relative;z-index:2}
+</style>
+</head>
+<body>
+
+<h1>&#10024; Wizard Cards V3 — Animated by Rarity &#10024;</h1>
+<p class="subtitle">Each rarity tier gets increasingly dramatic effects. Open in browser to see animations!</p>
+
+<div class="preview-grid">
+
+  <!-- ===== COMMON: Base Wizard ===== -->
+  <div class="preview-card card-common">
+    <span class="rarity-tag rt-common">Common</span>
+    <h3>Base Wizard</h3>
+    <p>No items — subtle idle breathing</p>
+    <div class="wizard-stage" id="stageCommon"></div>
+    <p class="note">Gentle staff glow + slow breathing</p>
+  </div>
+
+  <!-- ===== RARE: Headphones ===== -->
+  <div class="preview-card card-rare">
+    <div class="particles" id="rareParticles"></div>
+    <span class="rarity-tag rt-rare">Rare</span>
+    <h3>&#127911; K-pop Headphones</h3>
+    <p>Music notes float upward</p>
+    <div class="wizard-stage" id="stageRare"></div>
+    <p class="note">Purple glow + floating music notes</p>
+  </div>
+
+  <!-- ===== EPIC: Sparkle Suit + Dragon ===== -->
+  <div class="preview-card card-epic">
+    <div class="particles" id="epicParticles"></div>
+    <span class="rarity-tag rt-epic">Epic</span>
+    <h3>&#128142; Sparkle Suit + Baby Dragon</h3>
+    <p>Sparkle particles everywhere</p>
+    <div class="wizard-stage" id="stageEpic"></div>
+    <p class="note">Sweeping light + sparkle rain + bouncing dragon</p>
+  </div>
+
+  <!-- ===== LEGENDARY: Crown + Golden Armor ===== -->
+  <div class="preview-card card-legendary">
+    <div class="particles" id="legendParticles"></div>
+    <span class="rarity-tag rt-legendary">Legendary</span>
+    <h3>&#128081; Crown + Golden Armor</h3>
+    <p>Golden rain + intense glow</p>
+    <div class="wizard-stage" id="stageLegend"></div>
+    <p class="note">Gold particle rain + pulsing aura + light sweep</p>
+  </div>
+
+  <!-- ===== MYTHIC: Full Celestial Set ===== -->
+  <div class="preview-card card-mythic">
+    <div class="mythic-border"></div>
+    <div class="mythic-bg"></div>
+    <div class="particles" id="mythicParticles"></div>
+    <span class="rarity-tag rt-mythic">&#10024; Mythic &#10024;</span>
+    <h3>&#127756; Celestial Set + Kitsune</h3>
+    <p>Aurora Crown + Celestial Hanbok + Nine-Tail Kitsune</p>
+    <div class="wizard-stage" id="stageMythic"></div>
+    <p class="note">Rainbow aurora waves + color-shifting everything + multi-sparkle rain</p>
+  </div>
+
+</div>
+
+<p style="color:#a89ec9;margin-top:30px;font-size:.85rem;text-align:center;max-width:600px">
+  Preview only — game unchanged! Each card shows increasing visual effects by rarity tier.
+</p>
+
+<script>
+// ===== WIZARD SVG BUILDER =====
+// Builds a wizard SVG string with configurable layers
+function buildWizard(opts={}){
+  const {
+    hat='galaxy', // 'galaxy','cap','crown','aurora'
+    outfit='blue', // 'blue','sparkle','gold','celestial'
+    pet=null, // null,'dragon','kitsune'
+    headphones=false,
+    idSuffix=''
+  }=opts;
+
+  const id=s=>`${s}${idSuffix}`;
+
+  // Gradients
+  let defs=`<defs>
+    <linearGradient id="${id('galaxyHat')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6b3fa0"/><stop offset="25%" stop-color="#4a2d8a"/>
+      <stop offset="50%" stop-color="#2e5cb8"/><stop offset="75%" stop-color="#7b4fcf"/>
+      <stop offset="100%" stop-color="#c05ab8"/>
+    </linearGradient>
+    <linearGradient id="${id('goldTrim')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700"/><stop offset="50%" stop-color="#c8a84e"/><stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+    <radialGradient id="${id('crystalGlow')}" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="40%" stop-color="#64d8ff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#64d8ff" stop-opacity="0"/>
+    </radialGradient>`;
+
+  // Outfit-specific gradients
+  if(outfit==='blue'||outfit==='sparkle'){
+    defs+=`<linearGradient id="${id('robeMain')}" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d6fd4"/><stop offset="100%" stop-color="#1a4fa0"/>
+    </linearGradient>
+    <linearGradient id="${id('robeDark')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a4fa0"/><stop offset="100%" stop-color="#14397a"/>
+    </linearGradient>`;
+  }
+  if(outfit==='sparkle'){
+    defs+=`<linearGradient id="${id('sparkleGrad')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64d8ff"/><stop offset="50%" stop-color="#c77dff"/><stop offset="100%" stop-color="#ff6ec7"/>
+    </linearGradient>`;
+  }
+  if(outfit==='gold'){
+    defs+=`<linearGradient id="${id('goldRobe')}" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700"/><stop offset="50%" stop-color="#c8a84e"/><stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+    <linearGradient id="${id('robeDark')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b8942e"/><stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>`;
+  }
+  if(outfit==='celestial'){
+    defs+=`<linearGradient id="${id('celestialGrad')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6ec7"><animate attributeName="stop-color" values="#ff6ec7;#7b4fcf;#36d6c3;#ffd700;#ff6ec7" dur="4s" repeatCount="indefinite"/></stop>
+      <stop offset="50%" stop-color="#7b4fcf"><animate attributeName="stop-color" values="#7b4fcf;#36d6c3;#ffd700;#ff6ec7;#7b4fcf" dur="4s" repeatCount="indefinite"/></stop>
+      <stop offset="100%" stop-color="#36d6c3"><animate attributeName="stop-color" values="#36d6c3;#ffd700;#ff6ec7;#7b4fcf;#36d6c3" dur="4s" repeatCount="indefinite"/></stop>
+    </linearGradient>
+    <linearGradient id="${id('robeDark')}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a1a5e"/><stop offset="100%" stop-color="#1a2a5e"/>
+    </linearGradient>
+    <radialGradient id="${id('auroraGlow')}" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ff6ec7" stop-opacity="0.15"><animate attributeName="stop-color" values="#ff6ec7;#64d8ff;#ffd700;#ff6ec7" dur="5s" repeatCount="indefinite"/></stop>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>`;
+  }
+  defs+=`</defs>`;
+
+  // Staff (common to all)
+  const staffColor=outfit==='gold'?'#ffd700':outfit==='celestial'?'#ffd700':'#a07828';
+  const crystalColor=outfit==='celestial'?'#ff6ec7':'#64d8ff';
+  let staff=`
+    <line x1="225" y1="95" x2="240" y2="360" stroke="${staffColor}" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="225" cy="65" r="14" fill="url(#${id('crystalGlow')})">
+      <animate attributeName="r" values="12;16;12" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M218,58 L225,48 L232,58 L232,72 L225,78 L218,72 Z" fill="${crystalColor}" opacity="0.6" stroke="${crystalColor}" stroke-width="0.5"/>
+    <circle cx="222" cy="60" r="2" fill="#fff" opacity="0.8">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="225" cy="65" r="24" fill="${crystalColor}" opacity="0.08">
+      <animate attributeName="r" values="20;28;20" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.05;0.15;0.05" dur="3s" repeatCount="indefinite"/>
+    </circle>`;
+
+  // Aurora background glow for celestial
+  let auroraBack='';
+  if(outfit==='celestial'){
+    auroraBack=`<ellipse cx="150" cy="180" rx="120" ry="100" fill="url(#${id('auroraGlow')})"/>`;
+  }
+
+  // Robe
+  const robeRef=outfit==='sparkle'?id('sparkleGrad'):outfit==='gold'?id('goldRobe'):outfit==='celestial'?id('celestialGrad'):id('robeMain');
+  const robeDarkRef=id('robeDark');
+  let robe=`
+    <path d="M100,200 Q95,280 85,370 L215,370 Q210,280 200,200 Z" fill="url(#${robeDarkRef})"/>
+    <path d="M108,200 Q105,270 95,370 L150,370 L150,200 Z" fill="url(#${robeRef})"/>
+    <path d="M192,200 Q195,270 205,370 L150,370 L150,200 Z" fill="url(#${robeRef})"/>
+    <path d="M140,210 L136,370 L164,370 L160,210 Z" fill="rgba(0,0,0,0.15)"/>`;
+
+  // Robe sparkle dots for sparkle outfit
+  if(outfit==='sparkle'){
+    const sparkleColors=['#fff','#ffd700','#64d8ff','#ff6ec7','#c77dff'];
+    for(let i=0;i<12;i++){
+      const cx=80+Math.random()*120, cy=155+Math.random()*200;
+      const r=1+Math.random()*2.5, c=sparkleColors[Math.floor(Math.random()*sparkleColors.length)];
+      const dur=1+Math.random()*2, delay=Math.random()*2.5;
+      robe+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${c}" opacity="0.6"><animate attributeName="opacity" values="0.2;1;0.2" dur="${dur}s" repeatCount="indefinite" begin="${delay}s"/></circle>`;
+    }
+  }
+  // Star embroidery for celestial
+  if(outfit==='celestial'){
+    const starChars=['★','✦','✧','⋆'];
+    for(let i=0;i<8;i++){
+      const x=82+Math.random()*130, y=155+Math.random()*200;
+      const s=5+Math.random()*8, c=['#fff','#ffd700','#64d8ff','#ff6ec7'][Math.floor(Math.random()*4)];
+      const dur=1.5+Math.random()*2, delay=Math.random()*3;
+      robe+=`<text x="${x}" y="${y}" font-size="${s}" fill="${c}" opacity="0.6"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="${dur}s" repeatCount="indefinite" begin="${delay}s"/>${starChars[Math.floor(Math.random()*starChars.length)]}</text>`;
+    }
+  }
+  // Constellation for blue
+  if(outfit==='blue'){
+    robe+=`<circle cx="115" cy="270" r="1.5" fill="#64d8ff" opacity="0.5"/>
+    <circle cx="125" cy="280" r="1" fill="#64d8ff" opacity="0.4"/>
+    <line x1="115" y1="270" x2="125" y2="280" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>
+    <circle cx="180" cy="260" r="1.5" fill="#64d8ff" opacity="0.5"/>
+    <circle cx="188" cy="275" r="1" fill="#64d8ff" opacity="0.4"/>
+    <line x1="180" y1="260" x2="188" y2="275" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>`;
+  }
+
+  // Gold trim
+  const trimRef=id('goldTrim');
+  let trim=`
+    <path d="M85,358 Q150,365 215,358 L215,370 Q150,377 85,370 Z" fill="url(#${trimRef})"/>
+    <line x1="108" y1="200" x2="95" y2="370" stroke="#c8a84e" stroke-width="3"/>
+    <line x1="192" y1="200" x2="205" y2="370" stroke="#c8a84e" stroke-width="3"/>`;
+
+  // Belt
+  const beltGem=outfit==='gold'?'#e74c3c':outfit==='celestial'?'#fff':'#e74c3c';
+  let belt=`
+    <rect x="100" y="225" width="100" height="10" rx="4" fill="url(#${trimRef})" stroke="#8B6914" stroke-width="1"/>
+    <circle cx="150" cy="230" r="9" fill="#c8a84e" stroke="#8B6914" stroke-width="1.5"/>
+    <circle cx="150" cy="230" r="5" fill="${beltGem}"/>
+    <circle cx="120" cy="230" r="4" fill="#2ecc71" opacity="0.8"/>
+    <circle cx="180" cy="230" r="4" fill="#2ecc71" opacity="0.8"/>`;
+
+  // Sleeves
+  let sleeves=`
+    <path d="M108,200 Q80,220 65,260 Q62,268 70,270 L95,245 Q100,230 108,215 Z" fill="url(#${robeRef})"/>
+    <path d="M192,200 Q210,215 225,245 Q228,255 222,258 L200,235 Q196,220 192,210 Z" fill="url(#${robeRef})"/>
+    <path d="M65,255 Q70,270 78,265" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+    <path d="M220,243 Q225,255 218,253" stroke="#c8a84e" stroke-width="2.5" fill="none"/>`;
+
+  // Hands + Book
+  let hands=`
+    <circle cx="72" cy="264" r="10" fill="#f5d5a8"/>
+    <circle cx="68" cy="260" r="3" fill="#f5d5a8"/>
+    <circle cx="222" cy="252" r="10" fill="#f5d5a8"/>`;
+  let book=`<g transform="translate(38,246) rotate(-15)">
+    <rect x="0" y="0" width="44" height="34" rx="3" fill="#7b4fcf"/>
+    <rect x="2" y="2" width="40" height="30" rx="2" fill="#9b6ee6"/>
+    <line x1="22" y1="2" x2="22" y2="32" stroke="#6b3fa0" stroke-width="1.5"/>
+    <!-- Book title lines -->
+    <rect x="5" y="7" width="14" height="2.5" rx="1" fill="#ffd700" opacity="0.8"/>
+    <rect x="5" y="12" width="11" height="1.5" rx="0.75" fill="#ffd700" opacity="0.5"/>
+    <!-- Star on cover -->
+    <text x="12" y="25" text-anchor="middle" font-size="8" fill="#ffd700">★</text>
+    <!-- Page edges -->
+    <rect x="21" y="4" width="1" height="26" fill="#f5e6c8" opacity="0.4"/>
+  </g>`;
+
+  // Collar
+  let collar=`
+    <path d="M125,188 Q150,198 175,188 L175,200 Q150,210 125,200 Z" fill="url(#${robeRef})"/>
+    <path d="M125,188 Q150,195 175,188" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+    <circle cx="150" cy="195" r="6" fill="#ffd700" stroke="#8B6914" stroke-width="1"/>
+    <circle cx="150" cy="195" r="3" fill="#ff8c00"/>`;
+
+  // Head
+  let head=`
+    <circle cx="150" cy="155" r="42" fill="#f5d5a8"/>
+    <!-- Rosy cheeks (more prominent, youthful) -->
+    <ellipse cx="118" cy="170" rx="11" ry="6" fill="#ffb5a0" opacity="0.4"/>
+    <ellipse cx="182" cy="170" rx="11" ry="6" fill="#ffb5a0" opacity="0.4"/>`;
+
+  // Hair — brown braids, youthful
+  let hair=`
+    <!-- Hair top/bangs -->
+    <path d="M108,130 Q110,115 130,112 Q150,110 170,112 Q190,115 192,130 L192,140 Q185,128 150,125 Q115,128 108,140 Z" fill="#6b3a1a"/>
+    <!-- Bangs fringe -->
+    <path d="M112,130 Q120,120 135,118 Q145,117 150,120" fill="#7a4420" opacity="0.7"/>
+    <path d="M188,130 Q180,120 165,118 Q155,117 150,120" fill="#7a4420" opacity="0.7"/>
+    <!-- Left braid -->
+    <path d="M108,138 Q98,145 94,160 Q90,175 88,195 Q86,210 84,230 Q82,245 80,260" stroke="#6b3a1a" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M108,138 Q98,145 94,160 Q90,175 88,195 Q86,210 84,230 Q82,245 80,260" stroke="#7a4420" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- Left braid cross pattern -->
+    <path d="M103,148 Q96,155 96,162" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M99,162 Q92,170 91,178" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M95,178 Q90,186 89,195" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M92,195 Q88,204 87,212" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M89,212 Q85,222 84,232" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <!-- Left braid tie -->
+    <circle cx="80" cy="262" r="5" fill="#ff6ec7"/>
+    <circle cx="80" cy="262" r="3" fill="#ff9de0"/>
+    <!-- Right braid -->
+    <path d="M192,138 Q202,145 206,160 Q210,175 212,195 Q214,210 216,230 Q218,245 220,260" stroke="#6b3a1a" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M192,138 Q202,145 206,160 Q210,175 212,195 Q214,210 216,230 Q218,245 220,260" stroke="#7a4420" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- Right braid cross pattern -->
+    <path d="M197,148 Q204,155 204,162" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M201,162 Q208,170 209,178" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M205,178 Q210,186 211,195" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M208,195 Q212,204 213,212" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M211,212 Q215,222 216,232" stroke="#5a2e12" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <!-- Right braid tie -->
+    <circle cx="220" cy="262" r="5" fill="#ff6ec7"/>
+    <circle cx="220" cy="262" r="3" fill="#ff9de0"/>`;
+
+  // Face — youthful, big expressive eyes, cute features
+  let face=`
+    <!-- Glasses -->
+    <line x1="139" y1="155" x2="161" y2="155" stroke="#666" stroke-width="2"/>
+    <circle cx="132" cy="155" r="14" fill="none" stroke="#555" stroke-width="2.5"/>
+    <circle cx="132" cy="155" r="13" fill="#d4e8ff" opacity="0.08"/>
+    <circle cx="168" cy="155" r="14" fill="none" stroke="#555" stroke-width="2.5"/>
+    <circle cx="168" cy="155" r="13" fill="#d4e8ff" opacity="0.08"/>
+    <line x1="118" y1="152" x2="108" y2="145" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+    <line x1="182" y1="152" x2="192" y2="145" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+    <!-- Big sparkly eyes -->
+    <ellipse cx="132" cy="157" rx="6" ry="7" fill="#4a2810"/>
+    <ellipse cx="168" cy="157" rx="6" ry="7" fill="#4a2810"/>
+    <!-- Iris color -->
+    <ellipse cx="132" cy="158" rx="5" ry="6" fill="#6b3fa0"/>
+    <ellipse cx="168" cy="158" rx="5" ry="6" fill="#6b3fa0"/>
+    <!-- Pupil -->
+    <ellipse cx="132" cy="158" rx="3" ry="3.5" fill="#2d1b00"/>
+    <ellipse cx="168" cy="158" rx="3" ry="3.5" fill="#2d1b00"/>
+    <!-- Eye sparkles (big + small) -->
+    <circle cx="129" cy="154" r="2.5" fill="#fff" opacity="0.9"/>
+    <circle cx="165" cy="154" r="2.5" fill="#fff" opacity="0.9"/>
+    <circle cx="135" cy="160" r="1.2" fill="#fff" opacity="0.6"/>
+    <circle cx="171" cy="160" r="1.2" fill="#fff" opacity="0.6"/>
+    <!-- Eyelashes -->
+    <path d="M122,150 Q124,147 126,149" stroke="#4a2810" stroke-width="1.2" fill="none"/>
+    <path d="M126,148 Q128,145 130,148" stroke="#4a2810" stroke-width="1.2" fill="none"/>
+    <path d="M170,148 Q172,145 174,148" stroke="#4a2810" stroke-width="1.2" fill="none"/>
+    <path d="M174,149 Q176,147 178,150" stroke="#4a2810" stroke-width="1.2" fill="none"/>
+    <!-- Eyebrows (brown) -->
+    <path d="M120,142 Q132,136 144,142" stroke="#6b3a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M156,142 Q168,136 180,142" stroke="#6b3a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Small cute nose -->
+    <circle cx="150" cy="165" r="2.5" fill="#e8b898" opacity="0.6"/>
+    <!-- Big happy smile -->
+    <path d="M136,176 Q150,188 164,176" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Freckles -->
+    <circle cx="122" cy="165" r="1" fill="#d4a880" opacity="0.4"/>
+    <circle cx="126" cy="168" r="1" fill="#d4a880" opacity="0.3"/>
+    <circle cx="174" cy="165" r="1" fill="#d4a880" opacity="0.4"/>
+    <circle cx="178" cy="168" r="1" fill="#d4a880" opacity="0.3"/>`;
+
+  // Hat
+  let hatSvg='';
+  if(hat==='galaxy'){
+    hatSvg=`
+      <ellipse cx="150" cy="128" rx="62" ry="14" fill="url(#${id('galaxyHat')})"/>
+      <path d="M92,128 Q100,80 125,55 Q140,30 155,20 Q150,50 168,60 Q190,85 208,128 Z" fill="url(#${id('galaxyHat')})"/>
+      <path d="M155,20 Q165,30 168,45 Q158,35 155,20 Z" fill="#9b59b6" opacity="0.5"/>
+      <path d="M92,124 Q150,115 208,124 L208,130 Q150,121 92,130 Z" fill="url(#${trimRef})"/>
+      <circle cx="150" cy="123" r="6" fill="#e74c3c" stroke="#8B6914" stroke-width="1"/>
+      <circle cx="120" cy="100" r="1.5" fill="#fff" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="140" cy="75" r="1" fill="#ffd700" opacity="0.6"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite" begin="0.5s"/></circle>
+      <circle cx="175" cy="90" r="1.5" fill="#64d8ff" opacity="0.7"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.8s" repeatCount="indefinite" begin="1s"/></circle>
+      <circle cx="160" cy="55" r="1" fill="#ff6ec7" opacity="0.5"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" begin="0.3s"/></circle>
+      <circle cx="190" cy="110" r="1" fill="#ffd700" opacity="0.5"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="1.5s" repeatCount="indefinite" begin="0.8s"/></circle>`;
+  } else if(hat==='cap'){
+    hatSvg=`
+      <ellipse cx="150" cy="125" rx="50" ry="12" fill="#e74c3c"/>
+      <path d="M100,125 Q105,95 150,88 Q195,95 200,125 Z" fill="#e74c3c"/>
+      <path d="M108,122 Q112,100 150,93 Q188,100 192,122 Z" fill="#c0392b"/>
+      <path d="M88,128 Q68,122 62,132 Q68,140 95,133 Z" fill="#e74c3c"/>
+      <path d="M88,130 Q72,126 66,133 Q70,137 90,133 Z" fill="#c0392b"/>
+      <text x="150" y="114" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffd700">★</text>`;
+  } else if(hat==='crown'){
+    // Crown sits ON the head — positioned at the top of the head circle
+    hatSvg=`
+      <!-- Crown base sitting on head -->
+      <path d="M110,122 L118,92 L128,108 L150,78 L172,108 L182,92 L190,122 Z" fill="#ffd700"/>
+      <path d="M114,120 L120,95 L130,108 L150,82 L170,108 L180,95 L186,120 Z" fill="#f0c030"/>
+      <!-- Crown band (sits snug on head) -->
+      <path d="M108,118 Q150,112 192,118 L192,126 Q150,120 108,126 Z" fill="#c8a84e" stroke="#8B6914" stroke-width="1"/>
+      <!-- Gems on crown -->
+      <circle cx="150" cy="86" r="5" fill="#e74c3c" stroke="#b02020" stroke-width="0.5"/>
+      <circle cx="150" cy="84" r="1.5" fill="#ff8a80" opacity="0.6"/>
+      <circle cx="126" cy="102" r="4" fill="#3498db" stroke="#2070a0" stroke-width="0.5"/>
+      <circle cx="174" cy="102" r="4" fill="#2ecc71" stroke="#1a8a4a" stroke-width="0.5"/>
+      <!-- Crown point tips sparkle -->
+      <circle cx="150" cy="78" r="3" fill="#fff" opacity="0.4"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="118" cy="92" r="2" fill="#ffd700" opacity="0.4"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite" begin="0.5s"/></circle>
+      <circle cx="182" cy="92" r="2" fill="#ffd700" opacity="0.4"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite" begin="1s"/></circle>`;
+  } else if(hat==='aurora'){
+    hatSvg=`
+      <ellipse cx="150" cy="128" rx="62" ry="14" fill="url(#${id('celestialGrad')})"/>
+      <path d="M92,128 Q100,78 125,52 Q140,28 155,18 Q150,48 168,58 Q190,83 208,128 Z" fill="url(#${id('celestialGrad')})"/>
+      <path d="M92,124 Q150,115 208,124 L208,130 Q150,121 92,130 Z" fill="url(#${trimRef})"/>
+      <circle cx="150" cy="123" r="6" fill="#fff" opacity="0.9"><animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/></circle>
+      <circle cx="122" cy="66" r="3" fill="#64d8ff"/><circle cx="178" cy="66" r="3" fill="#ff6ec7"/>`;
+    // Animated stars on aurora hat
+    for(let i=0;i<10;i++){
+      const cx=100+Math.random()*100, cy=40+Math.random()*80;
+      const r=0.8+Math.random()*2;
+      const c=['#fff','#ffd700','#64d8ff','#ff6ec7','#36d6c3'][Math.floor(Math.random()*5)];
+      const dur=1+Math.random()*2.5, delay=Math.random()*3;
+      hatSvg+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${c}" opacity="0.6"><animate attributeName="opacity" values="0.2;1;0.2" dur="${dur}s" repeatCount="indefinite" begin="${delay}s"/></circle>`;
+    }
+  }
+
+  // Headphones overlay
+  let headphonesSvg='';
+  if(headphones){
+    headphonesSvg=`
+      <path d="M95,145 Q92,110 115,95" stroke="#333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M205,145 Q208,110 185,95" stroke="#333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <rect x="82" y="138" width="22" height="32" rx="11" fill="#444" stroke="#333" stroke-width="1.5"/>
+      <rect x="85" y="141" width="16" height="26" rx="8" fill="#7b4fcf"/>
+      <rect x="88" y="147" width="10" height="14" rx="5" fill="#9b6ee6" opacity="0.4"/>
+      <rect x="196" y="138" width="22" height="32" rx="11" fill="#444" stroke="#333" stroke-width="1.5"/>
+      <rect x="199" y="141" width="16" height="26" rx="8" fill="#7b4fcf"/>
+      <rect x="202" y="147" width="10" height="14" rx="5" fill="#9b6ee6" opacity="0.4"/>`;
+  }
+
+  // Pet
+  let petSvg='';
+  if(pet==='dragon'){
+    petSvg=`<g><animateTransform attributeName="transform" type="translate" values="0,0;0,-10;0,0" dur="2.5s" repeatCount="indefinite"/>
+      <ellipse cx="50" cy="265" rx="22" ry="16" fill="#2ecc71"/>
+      <path d="M30,250 Q10,232 16,254 Q20,260 32,258 Z" fill="#27ae60" opacity="0.8"/>
+      <path d="M70,250 Q90,232 84,254 Q80,260 68,258 Z" fill="#27ae60" opacity="0.8"/>
+      <circle cx="50" cy="240" r="16" fill="#2ecc71"/>
+      <path d="M38,228 L33,215 L42,226 Z" fill="#c8a84e"/>
+      <path d="M62,228 L67,215 L58,226 Z" fill="#c8a84e"/>
+      <circle cx="42" cy="236" r="5" fill="#fff"/><circle cx="58" cy="236" r="5" fill="#fff"/>
+      <circle cx="43" cy="236" r="3" fill="#2d1b00"/><circle cx="59" cy="236" r="3" fill="#2d1b00"/>
+      <circle cx="42" cy="234" r="1.5" fill="#fff" opacity="0.8"/><circle cx="58" cy="234" r="1.5" fill="#fff" opacity="0.8"/>
+      <circle cx="47" cy="248" r="1.5" fill="#1a8a4a"/><circle cx="53" cy="248" r="1.5" fill="#1a8a4a"/>
+      <path d="M43,253 Q50,259 57,253" stroke="#1a6b3a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="50" cy="267" rx="12" ry="9" fill="#a8e6cf" opacity="0.4"/>
+      <path d="M72,268 Q90,278 85,264 Q82,258 76,264" fill="#2ecc71"/>
+      <circle cx="50" cy="262" r="5" fill="#ff6b35" opacity="0.4">
+        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="4;7;4" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>`;
+  } else if(pet==='kitsune'){
+    petSvg=`<g><animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="3s" repeatCount="indefinite"/>
+      <!-- Kitsune body -->
+      <ellipse cx="50" cy="270" rx="22" ry="14" fill="#ff8c42"/>
+      <ellipse cx="50" cy="272" rx="18" ry="10" fill="#ffaa60" opacity="0.5"/>
+      <!-- Tails (9 tails fanning out) -->
+      <path d="M72,268 Q95,250 88,242" stroke="#ff8c42" stroke-width="4" fill="none" stroke-linecap="round"><animate attributeName="d" values="M72,268 Q95,250 88,242;M72,268 Q98,248 90,238;M72,268 Q95,250 88,242" dur="3s" repeatCount="indefinite"/></path>
+      <path d="M72,270 Q100,258 95,248" stroke="#ffaa60" stroke-width="3.5" fill="none" stroke-linecap="round"><animate attributeName="d" values="M72,270 Q100,258 95,248;M72,270 Q102,255 98,244;M72,270 Q100,258 95,248" dur="3.5s" repeatCount="indefinite"/></path>
+      <path d="M70,272 Q98,268 96,258" stroke="#ff8c42" stroke-width="3" fill="none" stroke-linecap="round"><animate attributeName="d" values="M70,272 Q98,268 96,258;M70,272 Q100,265 98,254;M70,272 Q98,268 96,258" dur="2.8s" repeatCount="indefinite"/></path>
+      <path d="M68,275 Q92,278 94,268" stroke="#ffaa60" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M66,278 Q88,286 90,278" stroke="#ff8c42" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Tail tips glow -->
+      <circle cx="88" cy="242" r="3" fill="#ffd700" opacity="0.6"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="95" cy="248" r="2.5" fill="#ff6ec7" opacity="0.5"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite" begin="0.5s"/></circle>
+      <circle cx="96" cy="258" r="2" fill="#64d8ff" opacity="0.5"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="1.8s" repeatCount="indefinite" begin="1s"/></circle>
+      <!-- Head -->
+      <circle cx="50" cy="248" r="14" fill="#ff8c42"/>
+      <!-- Ears -->
+      <path d="M38,238 L32,220 L44,234 Z" fill="#ff8c42"/>
+      <path d="M40,236 L35,224 L44,234 Z" fill="#ffcc99" opacity="0.5"/>
+      <path d="M62,238 L68,220 L56,234 Z" fill="#ff8c42"/>
+      <path d="M60,236 L65,224 L56,234 Z" fill="#ffcc99" opacity="0.5"/>
+      <!-- Face -->
+      <circle cx="43" cy="246" r="4" fill="#fff"/><circle cx="57" cy="246" r="4" fill="#fff"/>
+      <circle cx="44" cy="246" r="2.5" fill="#e74c3c"/><circle cx="58" cy="246" r="2.5" fill="#e74c3c"/>
+      <circle cx="43" cy="244" r="1" fill="#fff" opacity="0.8"/><circle cx="57" cy="244" r="1" fill="#fff" opacity="0.8"/>
+      <!-- Nose -->
+      <circle cx="50" cy="253" r="2" fill="#2d1b00"/>
+      <!-- Whiskers -->
+      <line x1="30" y1="250" x2="40" y2="252" stroke="#ffcc99" stroke-width="0.8"/>
+      <line x1="28" y1="254" x2="39" y2="254" stroke="#ffcc99" stroke-width="0.8"/>
+      <line x1="60" y1="252" x2="70" y2="250" stroke="#ffcc99" stroke-width="0.8"/>
+      <line x1="61" y1="254" x2="72" y2="254" stroke="#ffcc99" stroke-width="0.8"/>
+      <!-- Mystical fire wisps -->
+      <circle cx="35" cy="260" r="3" fill="#ffd700" opacity="0.3"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="65" cy="262" r="2.5" fill="#ff6ec7" opacity="0.3"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="2.5s" repeatCount="indefinite" begin="0.7s"/></circle>
+    </g>`;
+  }
+
+  // Boots
+  let boots=`
+    <ellipse cx="125" cy="372" rx="18" ry="8" fill="#6b3a1a"/>
+    <ellipse cx="125" cy="370" rx="16" ry="6" fill="#8B4513"/>
+    <ellipse cx="175" cy="372" rx="18" ry="8" fill="#6b3a1a"/>
+    <ellipse cx="175" cy="370" rx="16" ry="6" fill="#8B4513"/>`;
+
+  // Idle breathing animation on the whole body
+  let breathe=`<animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="4s" repeatCount="indefinite"/>`;
+
+  return `<svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+    ${defs}
+    <g>${breathe}
+    ${auroraBack}${staff}${robe}${trim}${belt}${sleeves}${hands}${book}${collar}${head}${hair}${face}${hatSvg}${headphonesSvg}${boots}
+    </g>
+    ${petSvg}
+  </svg>`;
+}
+
+// ===== RENDER ALL CARDS =====
+document.getElementById('stageCommon').innerHTML=buildWizard({hat:'galaxy',outfit:'blue',idSuffix:'_c'});
+document.getElementById('stageRare').innerHTML=buildWizard({hat:'galaxy',outfit:'blue',headphones:true,idSuffix:'_r'});
+document.getElementById('stageEpic').innerHTML=buildWizard({hat:'galaxy',outfit:'sparkle',pet:'dragon',idSuffix:'_e'});
+document.getElementById('stageLegend').innerHTML=buildWizard({hat:'crown',outfit:'gold',idSuffix:'_l'});
+document.getElementById('stageMythic').innerHTML=buildWizard({hat:'aurora',outfit:'celestial',pet:'kitsune',idSuffix:'_m'});
+
+// ===== CARD PARTICLE EFFECTS =====
+
+// Rare: floating music notes
+(function(){
+  const el=document.getElementById('rareParticles');
+  const notes=['♪','♫','♬','♩'];
+  for(let i=0;i<8;i++){
+    const n=document.createElement('div');
+    n.className='music-note';
+    n.textContent=notes[Math.floor(Math.random()*notes.length)];
+    n.style.left=(20+Math.random()*60)+'%';
+    n.style.top=(50+Math.random()*30)+'%';
+    n.style.setProperty('--delay',(Math.random()*4)+'s');
+    n.style.setProperty('--xdrift',(-20+Math.random()*40)+'px');
+    n.style.color='#b89eff';
+    n.style.fontSize=(12+Math.random()*8)+'px';
+    n.style.animationDuration=(2.5+Math.random()*2)+'s';
+    el.appendChild(n);
+  }
+})();
+
+// Epic: sparkle particles
+(function(){
+  const el=document.getElementById('epicParticles');
+  const chars=['✦','✧','⋆','✨','·'];
+  const colors=['#64d8ff','#c77dff','#ff6ec7','#fff','#ffd700'];
+  for(let i=0;i<20;i++){
+    const s=document.createElement('div');
+    s.className='sparkle-particle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=(5+Math.random()*90)+'%';
+    s.style.top=(5+Math.random()*90)+'%';
+    s.style.setProperty('--dur',(2+Math.random()*3)+'s');
+    s.style.setProperty('--delay',(Math.random()*3)+'s');
+    s.style.setProperty('--drift',(-10-Math.random()*20)+'px');
+    s.style.setProperty('--size',(8+Math.random()*12)+'px');
+    s.style.color=colors[Math.floor(Math.random()*colors.length)];
+    el.appendChild(s);
+  }
+})();
+
+// Legendary: gold particle rain
+(function(){
+  const el=document.getElementById('legendParticles');
+  for(let i=0;i<25;i++){
+    const d=document.createElement('div');
+    d.className='gold-drop';
+    d.style.left=(5+Math.random()*90)+'%';
+    d.style.top='-5%';
+    d.style.height=(8+Math.random()*16)+'px';
+    d.style.setProperty('--dur',(1.5+Math.random()*2.5)+'s');
+    d.style.setProperty('--delay',(Math.random()*3)+'s');
+    el.appendChild(d);
+  }
+  // Also add sparkle particles
+  const chars=['✦','★','⋆'];
+  for(let i=0;i<10;i++){
+    const s=document.createElement('div');
+    s.className='sparkle-particle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=(10+Math.random()*80)+'%';
+    s.style.top=(10+Math.random()*80)+'%';
+    s.style.setProperty('--dur',(2+Math.random()*2)+'s');
+    s.style.setProperty('--delay',(Math.random()*2)+'s');
+    s.style.setProperty('--drift',(-8-Math.random()*15)+'px');
+    s.style.setProperty('--size',(10+Math.random()*10)+'px');
+    s.style.color=['#ffd700','#ffaa00','#fff'][Math.floor(Math.random()*3)];
+    el.appendChild(s);
+  }
+})();
+
+// Mythic: aurora waves + rainbow sparkles + everything
+(function(){
+  const el=document.getElementById('mythicParticles');
+  // Aurora waves
+  const auroraColors=['rgba(255,100,200,0.12)','rgba(100,100,255,0.12)','rgba(54,214,195,0.1)','rgba(255,215,0,0.1)'];
+  for(let i=0;i<5;i++){
+    const w=document.createElement('div');
+    w.className='aurora-wave';
+    w.style.top=(15+i*15)+'%';
+    w.style.background=auroraColors[i%auroraColors.length];
+    w.style.setProperty('--dur',(5+Math.random()*4)+'s');
+    w.style.setProperty('--delay',(Math.random()*3)+'s');
+    el.appendChild(w);
+  }
+  // Rainbow sparkles — lots of them
+  const chars=['✦','✧','⋆','✨','★','·','♦'];
+  const colors=['#ff6ec7','#7b4fcf','#36d6c3','#ffd700','#64d8ff','#fff','#ff9de0','#9db4ff'];
+  for(let i=0;i<30;i++){
+    const s=document.createElement('div');
+    s.className='sparkle-particle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=(3+Math.random()*94)+'%';
+    s.style.top=(3+Math.random()*94)+'%';
+    s.style.setProperty('--dur',(1.5+Math.random()*3)+'s');
+    s.style.setProperty('--delay',(Math.random()*3)+'s');
+    s.style.setProperty('--drift',(-8-Math.random()*25)+'px');
+    s.style.setProperty('--size',(6+Math.random()*14)+'px');
+    s.style.color=colors[Math.floor(Math.random()*colors.length)];
+    el.appendChild(s);
+  }
+  // Gold drops too
+  for(let i=0;i<12;i++){
+    const d=document.createElement('div');
+    d.className='gold-drop';
+    d.style.left=(10+Math.random()*80)+'%';
+    d.style.top='-5%';
+    d.style.height=(6+Math.random()*14)+'px';
+    d.style.background=['linear-gradient(180deg,#ff6ec7,#7b4fcf)','linear-gradient(180deg,#64d8ff,#36d6c3)','linear-gradient(180deg,#ffd700,#ffaa00)'][Math.floor(Math.random()*3)];
+    d.style.setProperty('--dur',(2+Math.random()*3)+'s');
+    d.style.setProperty('--delay',(Math.random()*4)+'s');
+    el.appendChild(d);
+  }
+})();
+</script>
+
+</body>
+</html>

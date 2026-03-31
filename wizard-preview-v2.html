@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wizard Avatar V2 — Detailed Preview</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b0618;color:#fff;font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 15px}
+  h1{font-size:1.8rem;color:#ffd700;margin-bottom:6px;text-align:center}
+  .subtitle{color:#a89ec9;font-size:.9rem;margin-bottom:28px;text-align:center}
+  .preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1200px;width:100%}
+  .preview-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;text-align:center}
+  .preview-card h3{color:#ffd700;font-size:1rem;margin-bottom:4px}
+  .preview-card p{color:#a89ec9;font-size:.8rem;margin-bottom:16px}
+  .wizard-stage{width:220px;height:300px;margin:0 auto;position:relative}
+  .wizard-stage svg{width:100%;height:100%}
+  .full-width{grid-column:1/-1}
+  .full-width .wizard-stage{width:300px;height:400px}
+  .note{color:#a89ec9;font-size:.75rem;margin-top:8px;font-style:italic}
+</style>
+</head>
+<body>
+
+<h1>Wizard V2 — Detailed Design Preview</h1>
+<p class="subtitle">Inspired by your character sheet! Blue robe, gold trim, galaxy hat, staff, glasses, silver hair.</p>
+
+<div class="preview-grid">
+
+  <!-- MAIN: Full detailed wizard -->
+  <div class="preview-card full-width">
+    <h3>&#10024; Lexicon, Guardian of the Library &#10024;</h3>
+    <p>Base wizard — front-facing with all details</p>
+    <div class="wizard-stage">
+      <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Galaxy gradient for hat -->
+          <linearGradient id="galaxyHat" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6b3fa0"/>
+            <stop offset="25%" stop-color="#4a2d8a"/>
+            <stop offset="50%" stop-color="#2e5cb8"/>
+            <stop offset="75%" stop-color="#7b4fcf"/>
+            <stop offset="100%" stop-color="#c05ab8"/>
+          </linearGradient>
+          <linearGradient id="galaxyHat2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff6ec7" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#64d8ff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#ffd700" stop-opacity="0.3"/>
+          </linearGradient>
+          <!-- Robe gradient -->
+          <linearGradient id="robeMain" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2d6fd4"/>
+            <stop offset="100%" stop-color="#1a4fa0"/>
+          </linearGradient>
+          <linearGradient id="robeDark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1a4fa0"/>
+            <stop offset="100%" stop-color="#14397a"/>
+          </linearGradient>
+          <!-- Staff crystal glow -->
+          <radialGradient id="crystalGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+            <stop offset="40%" stop-color="#64d8ff" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#64d8ff" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Gold trim gradient -->
+          <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700"/>
+            <stop offset="50%" stop-color="#c8a84e"/>
+            <stop offset="100%" stop-color="#ffd700"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ===== STAFF (behind body) ===== -->
+        <line x1="225" y1="95" x2="240" y2="360" stroke="#8B6914" stroke-width="6" stroke-linecap="round"/>
+        <line x1="225" y1="95" x2="240" y2="360" stroke="#a07828" stroke-width="4" stroke-linecap="round"/>
+        <!-- Staff crystal housing -->
+        <path d="M218,88 L225,70 L232,88 Z" fill="#c8a84e" stroke="#8B6914" stroke-width="1"/>
+        <!-- Crystal -->
+        <circle cx="225" cy="65" r="14" fill="url(#crystalGlow)">
+          <animate attributeName="r" values="13;15;13" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <path d="M218,58 L225,48 L232,58 L232,72 L225,78 L218,72 Z" fill="#64d8ff" opacity="0.6" stroke="#4ab8d8" stroke-width="1"/>
+        <!-- Crystal sparkle -->
+        <circle cx="222" cy="60" r="2" fill="#fff" opacity="0.8">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Staff glow aura -->
+        <circle cx="225" cy="65" r="22" fill="#64d8ff" opacity="0.1">
+          <animate attributeName="r" values="20;26;20" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.08;0.18;0.08" dur="3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ===== ROBE / BODY ===== -->
+        <!-- Back of robe (cape/cloak) -->
+        <path d="M100,200 Q95,280 85,370 L215,370 Q210,280 200,200 Z" fill="url(#robeDark)"/>
+        <!-- Front robe panels -->
+        <path d="M108,200 Q105,270 95,370 L150,370 L150,200 Z" fill="url(#robeMain)"/>
+        <path d="M192,200 Q195,270 205,370 L150,370 L150,200 Z" fill="url(#robeMain)"/>
+        <!-- Center seam / inner robe visible -->
+        <path d="M140,210 L136,370 L164,370 L160,210 Z" fill="#1a3d80" opacity="0.5"/>
+
+        <!-- Gold trim - bottom hem -->
+        <path d="M85,358 Q150,365 215,358 L215,370 Q150,377 85,370 Z" fill="url(#goldTrim)"/>
+        <!-- Gold trim - front edges -->
+        <line x1="108" y1="200" x2="95" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <line x1="192" y1="200" x2="205" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <!-- Gold trim - center seam accents -->
+        <line x1="140" y1="215" x2="136" y2="365" stroke="#c8a84e" stroke-width="1.5" opacity="0.6"/>
+        <line x1="160" y1="215" x2="164" y2="365" stroke="#c8a84e" stroke-width="1.5" opacity="0.6"/>
+
+        <!-- Constellation embroidery on robe -->
+        <circle cx="115" cy="270" r="1.5" fill="#64d8ff" opacity="0.5"/>
+        <circle cx="125" cy="280" r="1" fill="#64d8ff" opacity="0.4"/>
+        <line x1="115" y1="270" x2="125" y2="280" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="120" cy="310" r="1.5" fill="#64d8ff" opacity="0.5"/>
+        <circle cx="110" cy="320" r="1" fill="#64d8ff" opacity="0.4"/>
+        <circle cx="128" cy="325" r="1" fill="#64d8ff" opacity="0.4"/>
+        <line x1="120" y1="310" x2="110" y2="320" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>
+        <line x1="120" y1="310" x2="128" y2="325" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>
+        <!-- Right side constellations -->
+        <circle cx="180" cy="260" r="1.5" fill="#64d8ff" opacity="0.5"/>
+        <circle cx="188" cy="275" r="1" fill="#64d8ff" opacity="0.4"/>
+        <circle cx="175" cy="280" r="1" fill="#64d8ff" opacity="0.3"/>
+        <line x1="180" y1="260" x2="188" y2="275" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>
+        <line x1="180" y1="260" x2="175" y2="280" stroke="#64d8ff" stroke-width="0.5" opacity="0.3"/>
+
+        <!-- ===== BELT ===== -->
+        <rect x="100" y="225" width="100" height="10" rx="4" fill="url(#goldTrim)" stroke="#8B6914" stroke-width="1"/>
+        <!-- Belt buckle -->
+        <circle cx="150" cy="230" r="9" fill="#c8a84e" stroke="#8B6914" stroke-width="1.5"/>
+        <circle cx="150" cy="230" r="5" fill="#e74c3c"/>
+        <circle cx="148" cy="228" r="1.5" fill="#ff8a80" opacity="0.6"/>
+        <!-- Belt side gems -->
+        <circle cx="120" cy="230" r="4" fill="#2ecc71" opacity="0.8" stroke="#1a8a4a" stroke-width="0.5"/>
+        <circle cx="180" cy="230" r="4" fill="#2ecc71" opacity="0.8" stroke="#1a8a4a" stroke-width="0.5"/>
+
+        <!-- ===== BELT POUCH ===== -->
+        <rect x="100" y="236" width="18" height="22" rx="4" fill="#8B4513"/>
+        <rect x="102" y="238" width="14" height="18" rx="3" fill="#a0522d"/>
+        <circle cx="109" cy="244" r="2" fill="#c8a84e"/>
+
+        <!-- ===== SLEEVES / ARMS ===== -->
+        <!-- Left sleeve -->
+        <path d="M108,200 Q80,220 65,260 Q62,268 70,270 L95,245 Q100,230 108,215 Z" fill="url(#robeMain)"/>
+        <path d="M65,258 Q62,266 70,268 L78,260 Q68,260 65,258 Z" fill="url(#goldTrim)"/>
+        <!-- Right sleeve -->
+        <path d="M192,200 Q210,215 225,245 Q228,255 222,258 L200,235 Q196,220 192,210 Z" fill="url(#robeMain)"/>
+        <path d="M225,243 Q228,253 222,256 L215,248 Q222,245 225,243 Z" fill="url(#goldTrim)"/>
+        <!-- Gold sleeve trim -->
+        <path d="M65,255 Q70,270 78,265" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <path d="M220,243 Q225,255 218,253" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+
+        <!-- ===== HANDS ===== -->
+        <!-- Left hand (holding book) -->
+        <circle cx="72" cy="264" r="10" fill="#f5d5a8"/>
+        <circle cx="68" cy="260" r="3" fill="#f5d5a8"/>
+        <!-- Right hand (on staff) -->
+        <circle cx="222" cy="252" r="10" fill="#f5d5a8"/>
+
+        <!-- ===== BOOK ===== -->
+        <g transform="translate(40,248) rotate(-15)">
+          <rect x="0" y="0" width="42" height="32" rx="2" fill="#8B0000"/>
+          <rect x="2" y="2" width="38" height="28" rx="1" fill="#a01010"/>
+          <line x1="21" y1="2" x2="21" y2="30" stroke="#6b0000" stroke-width="1.5"/>
+          <rect x="6" y="6" width="13" height="2" rx="1" fill="#ffd700" opacity="0.7"/>
+          <rect x="6" y="11" width="10" height="1.5" rx="0.75" fill="#ffd700" opacity="0.5"/>
+          <rect x="6" y="15" width="12" height="1.5" rx="0.75" fill="#ffd700" opacity="0.5"/>
+          <!-- Page edges -->
+          <rect x="20" y="4" width="1" height="24" fill="#f5e6c8" opacity="0.5"/>
+        </g>
+
+        <!-- ===== NECK / COLLAR ===== -->
+        <path d="M125,188 Q150,198 175,188 L175,200 Q150,210 125,200 Z" fill="#2d6fd4"/>
+        <path d="M125,188 Q150,195 175,188" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <!-- Collar brooch -->
+        <circle cx="150" cy="195" r="6" fill="#ffd700" stroke="#8B6914" stroke-width="1"/>
+        <circle cx="150" cy="195" r="3" fill="#ff8c00"/>
+
+        <!-- ===== HEAD ===== -->
+        <circle cx="150" cy="155" r="42" fill="#f5d5a8"/>
+        <!-- Cheek blush -->
+        <ellipse cx="118" cy="168" rx="10" ry="5" fill="#ffb5a0" opacity="0.3"/>
+        <ellipse cx="182" cy="168" rx="10" ry="5" fill="#ffb5a0" opacity="0.3"/>
+
+        <!-- ===== HAIR (silver/gray, behind hat) ===== -->
+        <!-- Side hair left -->
+        <path d="M108,140 Q100,145 95,170 Q92,190 90,210 Q88,215 92,215 Q96,200 100,185 Q105,170 110,160 Z" fill="#c0c5d0"/>
+        <path d="M108,140 Q102,148 98,170 Q95,185 93,200" stroke="#a8adba" stroke-width="1" fill="none" opacity="0.5"/>
+        <!-- Side hair right -->
+        <path d="M192,140 Q200,145 205,170 Q208,190 210,210 Q212,215 208,215 Q204,200 200,185 Q195,170 190,160 Z" fill="#c0c5d0"/>
+        <path d="M192,140 Q198,148 202,170 Q205,185 207,200" stroke="#a8adba" stroke-width="1" fill="none" opacity="0.5"/>
+
+        <!-- ===== GLASSES ===== -->
+        <!-- Bridge -->
+        <line x1="139" y1="155" x2="161" y2="155" stroke="#666" stroke-width="2"/>
+        <!-- Left lens -->
+        <circle cx="132" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <circle cx="132" cy="155" r="12" fill="#d4e8ff" opacity="0.15"/>
+        <!-- Right lens -->
+        <circle cx="168" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <circle cx="168" cy="155" r="12" fill="#d4e8ff" opacity="0.15"/>
+        <!-- Temples -->
+        <line x1="119" y1="153" x2="108" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <line x1="181" y1="153" x2="192" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <!-- Lens reflection -->
+        <ellipse cx="127" cy="150" rx="3" ry="2" fill="#fff" opacity="0.2" transform="rotate(-20,127,150)"/>
+        <ellipse cx="163" cy="150" rx="3" ry="2" fill="#fff" opacity="0.2" transform="rotate(-20,163,150)"/>
+
+        <!-- ===== EYES (behind glasses) ===== -->
+        <ellipse cx="132" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <ellipse cx="168" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <circle cx="130" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <circle cx="166" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+
+        <!-- ===== EYEBROWS ===== -->
+        <path d="M120,140 Q132,134 144,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M156,140 Q168,134 180,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- ===== NOSE ===== -->
+        <path d="M148,162 Q150,167 152,162" stroke="#d4a880" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+        <!-- ===== MOUTH (gentle smile) ===== -->
+        <path d="M138,175 Q150,184 162,175" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- ===== HAT ===== -->
+        <!-- Hat brim -->
+        <ellipse cx="150" cy="128" rx="62" ry="14" fill="url(#galaxyHat)"/>
+        <ellipse cx="150" cy="128" rx="60" ry="12" fill="url(#galaxyHat2)"/>
+        <!-- Hat brim underside shadow -->
+        <ellipse cx="150" cy="130" rx="58" ry="8" fill="#1a1040" opacity="0.3"/>
+        <!-- Hat cone -->
+        <path d="M92,128 Q100,80 125,55 Q140,30 155,20 Q150,50 168,60 Q190,85 208,128 Z" fill="url(#galaxyHat)"/>
+        <!-- Hat overlay for galaxy effect -->
+        <path d="M95,128 Q105,82 128,57 Q142,35 155,25 Q152,52 166,62 Q188,87 205,128 Z" fill="url(#galaxyHat2)" opacity="0.5"/>
+        <!-- Hat bend/fold at tip -->
+        <path d="M155,20 Q165,30 168,45 Q158,35 155,20 Z" fill="#9b59b6" opacity="0.5"/>
+        <!-- Hat band (gold) -->
+        <path d="M92,124 Q150,115 208,124 L208,130 Q150,121 92,130 Z" fill="url(#goldTrim)"/>
+        <path d="M92,125 Q150,116 208,125" stroke="#8B6914" stroke-width="1"/>
+        <!-- Hat band center gem -->
+        <circle cx="150" cy="123" r="6" fill="#e74c3c" stroke="#8B6914" stroke-width="1"/>
+        <circle cx="148" cy="121" r="2" fill="#ff6b6b" opacity="0.6"/>
+        <!-- Stars on hat -->
+        <circle cx="120" cy="100" r="1.5" fill="#fff" opacity="0.7">
+          <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="140" cy="75" r="1" fill="#ffd700" opacity="0.6">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+        </circle>
+        <circle cx="175" cy="90" r="1.5" fill="#64d8ff" opacity="0.7">
+          <animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.8s" repeatCount="indefinite" begin="1s"/>
+        </circle>
+        <circle cx="160" cy="55" r="1" fill="#ff6ec7" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" begin="0.3s"/>
+        </circle>
+        <circle cx="130" cy="85" r="0.8" fill="#fff" opacity="0.5">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.2s" repeatCount="indefinite" begin="1.5s"/>
+        </circle>
+        <circle cx="190" cy="110" r="1" fill="#ffd700" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="1.5s" repeatCount="indefinite" begin="0.8s"/>
+        </circle>
+
+        <!-- ===== BOOTS (peeking out) ===== -->
+        <ellipse cx="125" cy="372" rx="18" ry="8" fill="#6b3a1a"/>
+        <ellipse cx="125" cy="370" rx="16" ry="6" fill="#8B4513"/>
+        <ellipse cx="175" cy="372" rx="18" ry="8" fill="#6b3a1a"/>
+        <ellipse cx="175" cy="370" rx="16" ry="6" fill="#8B4513"/>
+      </svg>
+    </div>
+    <p class="note">All SVG — scales to any size, fully customizable layers, animating stars and crystal glow</p>
+  </div>
+
+  <!-- With Baseball Cap -->
+  <div class="preview-card">
+    <h3>With Baseball Cap</h3>
+    <p>Hat layer swapped</p>
+    <div class="wizard-stage">
+      <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="robeMain2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2d6fd4"/><stop offset="100%" stop-color="#1a4fa0"/></linearGradient>
+          <linearGradient id="robeDark2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a4fa0"/><stop offset="100%" stop-color="#14397a"/></linearGradient>
+          <linearGradient id="goldTrim2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffd700"/><stop offset="50%" stop-color="#c8a84e"/><stop offset="100%" stop-color="#ffd700"/></linearGradient>
+          <radialGradient id="crystalGlow2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="40%" stop-color="#64d8ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#64d8ff" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- Staff -->
+        <line x1="225" y1="95" x2="240" y2="360" stroke="#a07828" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="225" cy="65" r="12" fill="url(#crystalGlow2)"><animate attributeName="r" values="11;14;11" dur="2s" repeatCount="indefinite"/></circle>
+        <path d="M218,58 L225,48 L232,58 L232,72 L225,78 L218,72 Z" fill="#64d8ff" opacity="0.6"/>
+        <!-- Robe -->
+        <path d="M100,200 Q95,280 85,370 L215,370 Q210,280 200,200 Z" fill="url(#robeDark2)"/>
+        <path d="M108,200 Q105,270 95,370 L150,370 L150,200 Z" fill="url(#robeMain2)"/>
+        <path d="M192,200 Q195,270 205,370 L150,370 L150,200 Z" fill="url(#robeMain2)"/>
+        <path d="M140,210 L136,370 L164,370 L160,210 Z" fill="#1a3d80" opacity="0.5"/>
+        <path d="M85,358 Q150,365 215,358 L215,370 Q150,377 85,370 Z" fill="url(#goldTrim2)"/>
+        <line x1="108" y1="200" x2="95" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <line x1="192" y1="200" x2="205" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <!-- Belt -->
+        <rect x="100" y="225" width="100" height="10" rx="4" fill="url(#goldTrim2)"/>
+        <circle cx="150" cy="230" r="9" fill="#c8a84e"/><circle cx="150" cy="230" r="5" fill="#e74c3c"/>
+        <!-- Sleeves -->
+        <path d="M108,200 Q80,220 65,260 Q62,268 70,270 L95,245 Q100,230 108,215 Z" fill="url(#robeMain2)"/>
+        <path d="M192,200 Q210,215 225,245 Q228,255 222,258 L200,235 Q196,220 192,210 Z" fill="url(#robeMain2)"/>
+        <path d="M65,255 Q70,270 78,265" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <path d="M220,243 Q225,255 218,253" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <!-- Hands -->
+        <circle cx="72" cy="264" r="10" fill="#f5d5a8"/>
+        <circle cx="222" cy="252" r="10" fill="#f5d5a8"/>
+        <!-- Collar -->
+        <path d="M125,188 Q150,195 175,188" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <circle cx="150" cy="195" r="6" fill="#ffd700"/><circle cx="150" cy="195" r="3" fill="#ff8c00"/>
+        <!-- Head -->
+        <circle cx="150" cy="155" r="42" fill="#f5d5a8"/>
+        <ellipse cx="118" cy="168" rx="10" ry="5" fill="#ffb5a0" opacity="0.3"/>
+        <ellipse cx="182" cy="168" rx="10" ry="5" fill="#ffb5a0" opacity="0.3"/>
+        <!-- Hair -->
+        <path d="M108,140 Q100,145 95,170 Q92,190 90,210 Q88,215 92,215 Q96,200 100,185 Q105,170 110,160 Z" fill="#c0c5d0"/>
+        <path d="M192,140 Q200,145 205,170 Q208,190 210,210 Q212,215 208,215 Q204,200 200,185 Q195,170 190,160 Z" fill="#c0c5d0"/>
+        <!-- Glasses -->
+        <line x1="139" y1="155" x2="161" y2="155" stroke="#666" stroke-width="2"/>
+        <circle cx="132" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <circle cx="168" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <line x1="119" y1="153" x2="108" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <line x1="181" y1="153" x2="192" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <!-- Eyes -->
+        <ellipse cx="132" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <ellipse cx="168" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <circle cx="130" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <circle cx="166" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <!-- Eyebrows -->
+        <path d="M120,140 Q132,134 144,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M156,140 Q168,134 180,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Mouth -->
+        <path d="M138,175 Q150,184 162,175" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- BASEBALL CAP (replaces hat) -->
+        <ellipse cx="150" cy="125" rx="50" ry="12" fill="#e74c3c"/>
+        <path d="M100,125 Q105,95 150,88 Q195,95 200,125 Z" fill="#e74c3c"/>
+        <path d="M108,122 Q112,100 150,93 Q188,100 192,122 Z" fill="#c0392b"/>
+        <!-- Brim -->
+        <path d="M88,128 Q68,122 62,132 Q68,140 95,133 Z" fill="#e74c3c"/>
+        <path d="M88,130 Q72,126 66,133 Q70,137 90,133 Z" fill="#c0392b"/>
+        <!-- Logo -->
+        <text x="150" y="114" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffd700">&#9733;</text>
+
+        <!-- Boots -->
+        <ellipse cx="125" cy="372" rx="18" ry="8" fill="#8B4513"/>
+        <ellipse cx="175" cy="372" rx="18" ry="8" fill="#8B4513"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- With Headphones -->
+  <div class="preview-card">
+    <h3>With K-pop Headphones</h3>
+    <p>Accessory layered over hat</p>
+    <div class="wizard-stage">
+      <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="galaxyHat3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6b3fa0"/><stop offset="25%" stop-color="#4a2d8a"/><stop offset="50%" stop-color="#2e5cb8"/><stop offset="75%" stop-color="#7b4fcf"/><stop offset="100%" stop-color="#c05ab8"/></linearGradient>
+          <linearGradient id="robeMain3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2d6fd4"/><stop offset="100%" stop-color="#1a4fa0"/></linearGradient>
+          <linearGradient id="robeDark3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a4fa0"/><stop offset="100%" stop-color="#14397a"/></linearGradient>
+          <linearGradient id="goldTrim3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffd700"/><stop offset="50%" stop-color="#c8a84e"/><stop offset="100%" stop-color="#ffd700"/></linearGradient>
+          <radialGradient id="crystalGlow3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="40%" stop-color="#64d8ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#64d8ff" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- Staff -->
+        <line x1="225" y1="95" x2="240" y2="360" stroke="#a07828" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="225" cy="65" r="12" fill="url(#crystalGlow3)"><animate attributeName="r" values="11;14;11" dur="2s" repeatCount="indefinite"/></circle>
+        <path d="M218,58 L225,48 L232,58 L232,72 L225,78 L218,72 Z" fill="#64d8ff" opacity="0.6"/>
+        <!-- Robe -->
+        <path d="M100,200 Q95,280 85,370 L215,370 Q210,280 200,200 Z" fill="url(#robeDark3)"/>
+        <path d="M108,200 Q105,270 95,370 L150,370 L150,200 Z" fill="url(#robeMain3)"/>
+        <path d="M192,200 Q195,270 205,370 L150,370 L150,200 Z" fill="url(#robeMain3)"/>
+        <path d="M85,358 Q150,365 215,358 L215,370 Q150,377 85,370 Z" fill="url(#goldTrim3)"/>
+        <line x1="108" y1="200" x2="95" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <line x1="192" y1="200" x2="205" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <rect x="100" y="225" width="100" height="10" rx="4" fill="url(#goldTrim3)"/>
+        <circle cx="150" cy="230" r="9" fill="#c8a84e"/><circle cx="150" cy="230" r="5" fill="#e74c3c"/>
+        <!-- Sleeves -->
+        <path d="M108,200 Q80,220 65,260 Q62,268 70,270 L95,245 Q100,230 108,215 Z" fill="url(#robeMain3)"/>
+        <path d="M192,200 Q210,215 225,245 Q228,255 222,258 L200,235 Q196,220 192,210 Z" fill="url(#robeMain3)"/>
+        <path d="M65,255 Q70,270 78,265" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <path d="M220,243 Q225,255 218,253" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <circle cx="72" cy="264" r="10" fill="#f5d5a8"/>
+        <circle cx="222" cy="252" r="10" fill="#f5d5a8"/>
+        <path d="M125,188 Q150,195 175,188" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <circle cx="150" cy="195" r="6" fill="#ffd700"/><circle cx="150" cy="195" r="3" fill="#ff8c00"/>
+        <!-- Head -->
+        <circle cx="150" cy="155" r="42" fill="#f5d5a8"/>
+        <ellipse cx="118" cy="168" rx="10" ry="5" fill="#ffb5a0" opacity="0.3"/>
+        <ellipse cx="182" cy="168" rx="10" ry="5" fill="#ffb5a0" opacity="0.3"/>
+        <!-- Hair -->
+        <path d="M108,140 Q100,145 95,170 Q92,190 90,210 Q88,215 92,215 Q96,200 100,185 Q105,170 110,160 Z" fill="#c0c5d0"/>
+        <path d="M192,140 Q200,145 205,170 Q208,190 210,210 Q212,215 208,215 Q204,200 200,185 Q195,170 190,160 Z" fill="#c0c5d0"/>
+        <!-- Glasses -->
+        <line x1="139" y1="155" x2="161" y2="155" stroke="#666" stroke-width="2"/>
+        <circle cx="132" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <circle cx="168" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <line x1="119" y1="153" x2="108" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <line x1="181" y1="153" x2="192" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="132" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <ellipse cx="168" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <circle cx="130" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <circle cx="166" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <path d="M120,140 Q132,134 144,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M156,140 Q168,134 180,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M138,175 Q150,184 162,175" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- Galaxy Hat -->
+        <ellipse cx="150" cy="128" rx="62" ry="14" fill="url(#galaxyHat3)"/>
+        <path d="M92,128 Q100,80 125,55 Q140,30 155,20 Q150,50 168,60 Q190,85 208,128 Z" fill="url(#galaxyHat3)"/>
+        <path d="M92,124 Q150,115 208,124 L208,130 Q150,121 92,130 Z" fill="url(#goldTrim3)"/>
+        <circle cx="150" cy="123" r="6" fill="#e74c3c"/>
+        <!-- Stars on hat -->
+        <circle cx="120" cy="100" r="1.5" fill="#fff" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="175" cy="90" r="1.5" fill="#64d8ff" opacity="0.7"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.8s" repeatCount="indefinite" begin="1s"/></circle>
+
+        <!-- HEADPHONES (over hat) -->
+        <path d="M95,145 Q92,110 115,95" stroke="#333" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M205,145 Q208,110 185,95" stroke="#333" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <!-- Left ear cup -->
+        <rect x="82" y="138" width="22" height="32" rx="11" fill="#444" stroke="#333" stroke-width="1.5"/>
+        <rect x="85" y="141" width="16" height="26" rx="8" fill="#7b4fcf"/>
+        <rect x="88" y="147" width="10" height="14" rx="5" fill="#9b6ee6" opacity="0.5"/>
+        <!-- Right ear cup -->
+        <rect x="196" y="138" width="22" height="32" rx="11" fill="#444" stroke="#333" stroke-width="1.5"/>
+        <rect x="199" y="141" width="16" height="26" rx="8" fill="#7b4fcf"/>
+        <rect x="202" y="147" width="10" height="14" rx="5" fill="#9b6ee6" opacity="0.5"/>
+
+        <!-- Boots -->
+        <ellipse cx="125" cy="372" rx="18" ry="8" fill="#8B4513"/>
+        <ellipse cx="175" cy="372" rx="18" ry="8" fill="#8B4513"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- With Pet Dragon -->
+  <div class="preview-card">
+    <h3>With Baby Dragon Pet</h3>
+    <p>Pet companion floats nearby</p>
+    <div class="wizard-stage">
+      <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="galaxyHat4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6b3fa0"/><stop offset="50%" stop-color="#2e5cb8"/><stop offset="100%" stop-color="#c05ab8"/></linearGradient>
+          <linearGradient id="robeMain4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2d6fd4"/><stop offset="100%" stop-color="#1a4fa0"/></linearGradient>
+          <linearGradient id="robeDark4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a4fa0"/><stop offset="100%" stop-color="#14397a"/></linearGradient>
+          <linearGradient id="goldTrim4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffd700"/><stop offset="50%" stop-color="#c8a84e"/><stop offset="100%" stop-color="#ffd700"/></linearGradient>
+          <radialGradient id="crystalGlow4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff" stop-opacity="0.9"/><stop offset="40%" stop-color="#64d8ff" stop-opacity="0.8"/><stop offset="100%" stop-color="#64d8ff" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- Staff -->
+        <line x1="225" y1="95" x2="240" y2="360" stroke="#a07828" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="225" cy="65" r="12" fill="url(#crystalGlow4)"><animate attributeName="r" values="11;14;11" dur="2s" repeatCount="indefinite"/></circle>
+        <path d="M218,58 L225,48 L232,58 L232,72 L225,78 L218,72 Z" fill="#64d8ff" opacity="0.6"/>
+        <!-- Robe (simplified) -->
+        <path d="M100,200 Q95,280 85,370 L215,370 Q210,280 200,200 Z" fill="url(#robeDark4)"/>
+        <path d="M108,200 Q105,270 95,370 L150,370 L150,200 Z" fill="url(#robeMain4)"/>
+        <path d="M192,200 Q195,270 205,370 L150,370 L150,200 Z" fill="url(#robeMain4)"/>
+        <path d="M85,358 Q150,365 215,358 L215,370 Q150,377 85,370 Z" fill="url(#goldTrim4)"/>
+        <line x1="108" y1="200" x2="95" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <line x1="192" y1="200" x2="205" y2="370" stroke="#c8a84e" stroke-width="3"/>
+        <rect x="100" y="225" width="100" height="10" rx="4" fill="url(#goldTrim4)"/>
+        <circle cx="150" cy="230" r="9" fill="#c8a84e"/><circle cx="150" cy="230" r="5" fill="#e74c3c"/>
+        <path d="M108,200 Q80,220 65,260 Q62,268 70,270 L95,245 Q100,230 108,215 Z" fill="url(#robeMain4)"/>
+        <path d="M192,200 Q210,215 225,245 Q228,255 222,258 L200,235 Q196,220 192,210 Z" fill="url(#robeMain4)"/>
+        <path d="M65,255 Q70,270 78,265" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <path d="M220,243 Q225,255 218,253" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <circle cx="72" cy="264" r="10" fill="#f5d5a8"/>
+        <circle cx="222" cy="252" r="10" fill="#f5d5a8"/>
+        <path d="M125,188 Q150,195 175,188" stroke="#c8a84e" stroke-width="2.5" fill="none"/>
+        <circle cx="150" cy="195" r="6" fill="#ffd700"/><circle cx="150" cy="195" r="3" fill="#ff8c00"/>
+        <!-- Head -->
+        <circle cx="150" cy="155" r="42" fill="#f5d5a8"/>
+        <path d="M108,140 Q100,145 95,170 Q92,190 90,210 Q88,215 92,215 Q96,200 100,185 Q105,170 110,160 Z" fill="#c0c5d0"/>
+        <path d="M192,140 Q200,145 205,170 Q208,190 210,210 Q212,215 208,215 Q204,200 200,185 Q195,170 190,160 Z" fill="#c0c5d0"/>
+        <line x1="139" y1="155" x2="161" y2="155" stroke="#666" stroke-width="2"/>
+        <circle cx="132" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <circle cx="168" cy="155" r="13" fill="none" stroke="#555" stroke-width="2.5"/>
+        <line x1="119" y1="153" x2="108" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <line x1="181" y1="153" x2="192" y2="148" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="132" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <ellipse cx="168" cy="157" rx="4" ry="5" fill="#2d4a7a"/>
+        <circle cx="130" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <circle cx="166" cy="155" r="1.8" fill="#fff" opacity="0.7"/>
+        <path d="M120,140 Q132,134 144,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M156,140 Q168,134 180,140" stroke="#8a8fa0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M138,175 Q150,184 162,175" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Hat -->
+        <ellipse cx="150" cy="128" rx="62" ry="14" fill="url(#galaxyHat4)"/>
+        <path d="M92,128 Q100,80 125,55 Q140,30 155,20 Q150,50 168,60 Q190,85 208,128 Z" fill="url(#galaxyHat4)"/>
+        <path d="M92,124 Q150,115 208,124 L208,130 Q150,121 92,130 Z" fill="url(#goldTrim4)"/>
+        <circle cx="150" cy="123" r="6" fill="#e74c3c"/>
+        <circle cx="120" cy="100" r="1.5" fill="#fff" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="175" cy="90" r="1.5" fill="#64d8ff" opacity="0.7"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.8s" repeatCount="indefinite" begin="1s"/></circle>
+        <ellipse cx="125" cy="372" rx="18" ry="8" fill="#8B4513"/>
+        <ellipse cx="175" cy="372" rx="18" ry="8" fill="#8B4513"/>
+
+        <!-- ===== BABY DRAGON PET ===== -->
+        <g>
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2.5s" repeatCount="indefinite"/>
+          <!-- Dragon body -->
+          <ellipse cx="55" cy="260" rx="20" ry="15" fill="#2ecc71"/>
+          <ellipse cx="55" cy="262" rx="18" ry="12" fill="#27ae60"/>
+          <!-- Wings -->
+          <path d="M38,248 Q18,230 22,250 Q25,255 38,255 Z" fill="#27ae60" opacity="0.8"/>
+          <path d="M72,248 Q92,230 88,250 Q85,255 72,255 Z" fill="#27ae60" opacity="0.8"/>
+          <path d="M40,250 Q25,238 27,252" stroke="#1a8a4a" stroke-width="0.8" fill="none"/>
+          <path d="M70,250 Q85,238 83,252" stroke="#1a8a4a" stroke-width="0.8" fill="none"/>
+          <!-- Head -->
+          <circle cx="55" cy="238" r="14" fill="#2ecc71"/>
+          <circle cx="55" cy="240" r="12" fill="#27ae60" opacity="0.3"/>
+          <!-- Horns -->
+          <path d="M46,228 L42,218 L48,226 Z" fill="#c8a84e"/>
+          <path d="M64,228 L68,218 L62,226 Z" fill="#c8a84e"/>
+          <!-- Eyes -->
+          <circle cx="48" cy="235" r="4" fill="#fff"/>
+          <circle cx="62" cy="235" r="4" fill="#fff"/>
+          <circle cx="49" cy="235" r="2.5" fill="#2d1b00"/>
+          <circle cx="63" cy="235" r="2.5" fill="#2d1b00"/>
+          <circle cx="48" cy="233" r="1" fill="#fff" opacity="0.8"/>
+          <circle cx="62" cy="233" r="1" fill="#fff" opacity="0.8"/>
+          <!-- Nostrils -->
+          <circle cx="52" cy="244" r="1.5" fill="#1a8a4a"/>
+          <circle cx="58" cy="244" r="1.5" fill="#1a8a4a"/>
+          <!-- Smile -->
+          <path d="M49,248 Q55,253 61,248" stroke="#1a6b3a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Tail -->
+          <path d="M75,262 Q90,270 85,258 Q82,252 78,260" fill="#2ecc71" stroke="#1a8a4a" stroke-width="0.5"/>
+          <!-- Fire puff -->
+          <circle cx="55" cy="256" r="4" fill="#ff6b35" opacity="0.5">
+            <animate attributeName="opacity" values="0.2;0.6;0.2" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Belly -->
+          <ellipse cx="55" cy="263" rx="10" ry="8" fill="#a8e6cf" opacity="0.4"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<p style="color:#a89ec9;margin-top:30px;font-size:.85rem;text-align:center;max-width:600px">
+  This is a <strong>preview only</strong> — your game is unchanged!<br>
+  Open <code>wizard-preview-v2.html</code> in your browser to see it full size with animations.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wizard Avatar Preview</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b0618;color:#fff;font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 15px}
+  h1{font-size:1.8rem;color:#ffd700;margin-bottom:8px;text-align:center}
+  .subtitle{color:#a89ec9;font-size:.95rem;margin-bottom:30px;text-align:center}
+  .preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1000px;width:100%}
+  .preview-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:20px;text-align:center}
+  .preview-card h3{color:#ffd700;font-size:.95rem;margin-bottom:6px}
+  .preview-card p{color:#a89ec9;font-size:.8rem;margin-bottom:16px}
+  .wizard-stage{width:180px;height:200px;margin:0 auto;position:relative}
+
+  /* ===== SVG WIZARD STYLES ===== */
+  .wiz-svg{width:100%;height:100%}
+
+  /* Item buttons */
+  .controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:30px;max-width:800px}
+  .ctrl-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:8px 16px;border-radius:12px;cursor:pointer;font-size:.85rem;transition:all .2s}
+  .ctrl-btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,215,0,0.4)}
+  .ctrl-btn.active{background:rgba(255,215,0,0.15);border-color:#ffd700;color:#ffd700}
+  .section-label{width:100%;text-align:center;color:#ffd700;font-size:.85rem;margin-top:14px;margin-bottom:4px;font-weight:bold}
+
+  /* Interactive preview */
+  .interactive{grid-column:1/-1;background:rgba(255,255,255,0.04);border:2px solid rgba(255,215,0,0.15);border-radius:20px;padding:30px;text-align:center}
+  .interactive h3{font-size:1.2rem;color:#ffd700;margin-bottom:4px}
+  .interactive .wizard-stage{width:240px;height:260px}
+
+  /* Comparison */
+  .comparison{grid-column:1/-1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;text-align:center;margin-top:10px}
+  .comp-row{display:flex;justify-content:center;align-items:center;gap:40px;margin-top:16px;flex-wrap:wrap}
+  .comp-item{text-align:center}
+  .comp-item .label{color:#a89ec9;font-size:.8rem;margin-top:8px}
+  .emoji-wiz{font-size:5rem;display:block}
+</style>
+</head>
+<body>
+
+<h1>Wizard Avatar Style Preview</h1>
+<p class="subtitle">See how the SVG wizard looks with different items equipped. Nothing in the game is changed!</p>
+
+<!-- Comparison: emoji vs SVG -->
+<div class="preview-grid">
+  <div class="comparison">
+    <h3 style="color:#ffd700">Current Emoji vs New SVG</h3>
+    <div class="comp-row">
+      <div class="comp-item">
+        <span class="emoji-wiz">&#129497;&#8205;&#9794;&#65039;</span>
+        <div class="label">Current (Emoji)</div>
+      </div>
+      <div class="comp-item" style="font-size:2rem;color:#ffd700">&#10132;</div>
+      <div class="comp-item">
+        <div class="wizard-stage">
+          <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Staff -->
+            <line x1="145" y1="75" x2="155" y2="195" stroke="#c8a84e" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="145" cy="68" r="10" fill="#64d8ff" opacity="0.9"/>
+            <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.5"/>
+            <!-- Body/Robe -->
+            <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="#3a6dd4"/>
+            <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="#2d5ab8"/>
+            <!-- Belt -->
+            <rect x="72" y="145" width="56" height="6" rx="3" fill="#c8a84e"/>
+            <circle cx="100" cy="148" r="5" fill="#ffd700"/>
+            <!-- Head -->
+            <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+            <!-- Eyes -->
+            <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+            <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+            <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+            <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+            <!-- Eyebrows -->
+            <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Happy mouth -->
+            <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Cheek blush -->
+            <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+            <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+            <!-- Beard -->
+            <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+            <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+            <!-- Wizard Hat -->
+            <path d="M60,85 L100,15 L140,85 Z" fill="#3a6dd4"/>
+            <path d="M65,83 L100,22 L135,83 Z" fill="#2d5ab8"/>
+            <ellipse cx="100" cy="85" rx="46" ry="10" fill="#3a6dd4"/>
+            <!-- Hat band -->
+            <rect x="62" y="80" width="76" height="7" rx="3" fill="#c8a84e"/>
+            <!-- Hat star -->
+            <text x="100" y="58" text-anchor="middle" font-size="14" fill="#ffd700">&#9733;</text>
+            <!-- Hands -->
+            <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+            <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+          </svg>
+        </div>
+        <div class="label">New SVG (customizable!)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Base wizard -->
+  <div class="preview-card">
+    <h3>Base Wizard</h3>
+    <p>No items equipped</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#c8a84e" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="10" fill="#64d8ff" opacity="0.9"/>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.5"/>
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="#3a6dd4"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="#2d5ab8"/>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#c8a84e"/>
+        <circle cx="100" cy="148" r="5" fill="#ffd700"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <path d="M60,85 L100,15 L140,85 Z" fill="#3a6dd4"/>
+        <path d="M65,83 L100,22 L135,83 Z" fill="#2d5ab8"/>
+        <ellipse cx="100" cy="85" rx="46" ry="10" fill="#3a6dd4"/>
+        <rect x="62" y="80" width="76" height="7" rx="3" fill="#c8a84e"/>
+        <text x="100" y="58" text-anchor="middle" font-size="14" fill="#ffd700">&#9733;</text>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Baseball Cap -->
+  <div class="preview-card">
+    <h3>Baseball Cap &#9918;</h3>
+    <p>Swaps wizard hat for cap</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#c8a84e" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="10" fill="#64d8ff" opacity="0.9"/>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.5"/>
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="#3a6dd4"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="#2d5ab8"/>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#c8a84e"/>
+        <circle cx="100" cy="148" r="5" fill="#ffd700"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <!-- Baseball Cap -->
+        <ellipse cx="100" cy="80" rx="38" ry="12" fill="#e74c3c"/>
+        <path d="M62,80 Q65,65 100,62 Q135,65 138,80 Z" fill="#e74c3c"/>
+        <path d="M68,78 Q70,68 100,65 Q130,68 132,78 Z" fill="#c0392b"/>
+        <!-- Brim -->
+        <path d="M55,82 Q45,80 42,85 Q45,90 65,85 Z" fill="#e74c3c"/>
+        <path d="M55,83 Q48,82 46,85 Q48,87 60,85 Z" fill="#c0392b"/>
+        <!-- Logo -->
+        <text x="100" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffd700">&#9733;</text>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Headphones -->
+  <div class="preview-card">
+    <h3>K-pop Headphones &#127911;</h3>
+    <p>Worn over the wizard hat</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#c8a84e" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="10" fill="#64d8ff" opacity="0.9"/>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.5"/>
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="#3a6dd4"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="#2d5ab8"/>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#c8a84e"/>
+        <circle cx="100" cy="148" r="5" fill="#ffd700"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <!-- Wizard Hat -->
+        <path d="M60,85 L100,15 L140,85 Z" fill="#3a6dd4"/>
+        <path d="M65,83 L100,22 L135,83 Z" fill="#2d5ab8"/>
+        <ellipse cx="100" cy="85" rx="46" ry="10" fill="#3a6dd4"/>
+        <rect x="62" y="80" width="76" height="7" rx="3" fill="#c8a84e"/>
+        <text x="100" y="58" text-anchor="middle" font-size="14" fill="#ffd700">&#9733;</text>
+        <!-- Headphones -->
+        <path d="M62,95 Q60,70 80,62" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M138,95 Q140,70 120,62" stroke="#333" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="52" y="90" width="16" height="24" rx="8" fill="#444"/>
+        <rect x="54" y="92" width="12" height="20" rx="6" fill="#7b4fcf"/>
+        <rect x="132" y="90" width="16" height="24" rx="8" fill="#444"/>
+        <rect x="134" y="92" width="12" height="20" rx="6" fill="#7b4fcf"/>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Sparkle Suit -->
+  <div class="preview-card">
+    <h3>Sparkle Suit &#128142;</h3>
+    <p>Glittery robe with sparkle FX</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#64d8ff"/>
+            <stop offset="50%" stop-color="#c77dff"/>
+            <stop offset="100%" stop-color="#ff6ec7"/>
+          </linearGradient>
+        </defs>
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#c8a84e" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="10" fill="#64d8ff" opacity="0.9"/>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.5"/>
+        <!-- Sparkle Robe -->
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="url(#sparkleGrad)"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="url(#sparkleGrad)" opacity="0.7"/>
+        <!-- Sparkle dots on robe -->
+        <circle cx="80" cy="160" r="2" fill="#fff" opacity="0.8"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/></circle>
+        <circle cx="115" cy="170" r="1.5" fill="#fff" opacity="0.6"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" begin="0.3s"/></circle>
+        <circle cx="95" cy="185" r="2" fill="#ffd700" opacity="0.7"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite" begin="0.7s"/></circle>
+        <circle cx="120" cy="150" r="1.5" fill="#64d8ff" opacity="0.5"><animate attributeName="opacity" values="0.2;0.9;0.2" dur="1.3s" repeatCount="indefinite" begin="1s"/></circle>
+        <circle cx="75" cy="175" r="1.8" fill="#ff6ec7" opacity="0.6"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite" begin="0.5s"/></circle>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#ffd700"/>
+        <circle cx="100" cy="148" r="5" fill="#fff"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <path d="M60,85 L100,15 L140,85 Z" fill="#3a6dd4"/>
+        <path d="M65,83 L100,22 L135,83 Z" fill="#2d5ab8"/>
+        <ellipse cx="100" cy="85" rx="46" ry="10" fill="#3a6dd4"/>
+        <rect x="62" y="80" width="76" height="7" rx="3" fill="#c8a84e"/>
+        <text x="100" y="58" text-anchor="middle" font-size="14" fill="#ffd700">&#9733;</text>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Crown + Golden Armor -->
+  <div class="preview-card">
+    <h3>Crown + Golden Armor &#128081;</h3>
+    <p>Legendary combo</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700"/>
+            <stop offset="50%" stop-color="#c8a84e"/>
+            <stop offset="100%" stop-color="#ffd700"/>
+          </linearGradient>
+        </defs>
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#ffd700" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="10" fill="#ffd700" opacity="0.9"/>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.7"/>
+        <!-- Golden Armor Robe -->
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="url(#goldGrad)"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="#c8a84e"/>
+        <!-- Armor plates -->
+        <path d="M78,135 L90,135 L88,155 L80,155 Z" fill="#ffd700" opacity="0.5"/>
+        <path d="M112,135 L122,135 L120,155 L114,155 Z" fill="#ffd700" opacity="0.5"/>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#fff" opacity="0.3"/>
+        <circle cx="100" cy="148" r="6" fill="#e74c3c"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <!-- Crown -->
+        <path d="M62,82 L70,60 L82,75 L100,50 L118,75 L130,60 L138,82 Z" fill="#ffd700"/>
+        <path d="M66,80 L72,63 L83,74 L100,54 L117,74 L128,63 L134,80 Z" fill="#f0c030"/>
+        <circle cx="100" cy="58" r="4" fill="#e74c3c"/>
+        <circle cx="78" cy="68" r="3" fill="#3498db"/>
+        <circle cx="122" cy="68" r="3" fill="#2ecc71"/>
+        <rect x="62" y="78" width="76" height="6" rx="2" fill="#c8a84e"/>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- With pet -->
+  <div class="preview-card">
+    <h3>With Baby Dragon Pet &#128009;</h3>
+    <p>Pet floats alongside!</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#c8a84e" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="10" fill="#64d8ff" opacity="0.9"/>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.5"/>
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="#3a6dd4"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="#2d5ab8"/>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#c8a84e"/>
+        <circle cx="100" cy="148" r="5" fill="#ffd700"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <path d="M60,85 L100,15 L140,85 Z" fill="#3a6dd4"/>
+        <path d="M65,83 L100,22 L135,83 Z" fill="#2d5ab8"/>
+        <ellipse cx="100" cy="85" rx="46" ry="10" fill="#3a6dd4"/>
+        <rect x="62" y="80" width="76" height="7" rx="3" fill="#c8a84e"/>
+        <text x="100" y="58" text-anchor="middle" font-size="14" fill="#ffd700">&#9733;</text>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+        <!-- Baby Dragon Pet -->
+        <g transform="translate(160,150)">
+          <animateTransform attributeName="transform" type="translate" values="160,150;160,144;160,150" dur="2s" repeatCount="indefinite"/>
+          <!-- Dragon body -->
+          <ellipse cx="0" cy="15" rx="14" ry="10" fill="#2ecc71"/>
+          <!-- Wings -->
+          <path d="M-10,8 Q-22,0 -15,12" fill="#27ae60" opacity="0.7"/>
+          <path d="M10,8 Q22,0 15,12" fill="#27ae60" opacity="0.7"/>
+          <!-- Head -->
+          <circle cx="0" cy="4" r="9" fill="#2ecc71"/>
+          <!-- Eyes -->
+          <circle cx="-4" cy="2" r="2.5" fill="#fff"/>
+          <circle cx="4" cy="2" r="2.5" fill="#fff"/>
+          <circle cx="-4" cy="2" r="1.5" fill="#2d1b00"/>
+          <circle cx="4" cy="2" r="1.5" fill="#2d1b00"/>
+          <!-- Nostrils -->
+          <circle cx="-2" cy="8" r="1" fill="#1a8a4a"/>
+          <circle cx="2" cy="8" r="1" fill="#1a8a4a"/>
+          <!-- Fire breath -->
+          <path d="M0,10 Q-4,16 0,20 Q4,16 0,10" fill="#ff6b35" opacity="0.7">
+            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1s" repeatCount="indefinite"/>
+          </path>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Galaxy Robe (Mythic) -->
+  <div class="preview-card">
+    <h3>&#10024; Celestial Hanbok (MYTHIC) &#10024;</h3>
+    <p>Rainbow aurora shifting glow</p>
+    <div class="wizard-stage">
+      <svg class="wiz-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="celestialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff6ec7"><animate attributeName="stop-color" values="#ff6ec7;#7b4fcf;#36d6c3;#ffd700;#ff6ec7" dur="4s" repeatCount="indefinite"/></stop>
+            <stop offset="50%" stop-color="#7b4fcf"><animate attributeName="stop-color" values="#7b4fcf;#36d6c3;#ffd700;#ff6ec7;#7b4fcf" dur="4s" repeatCount="indefinite"/></stop>
+            <stop offset="100%" stop-color="#36d6c3"><animate attributeName="stop-color" values="#36d6c3;#ffd700;#ff6ec7;#7b4fcf;#36d6c3" dur="4s" repeatCount="indefinite"/></stop>
+          </linearGradient>
+          <linearGradient id="auroraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff6ec7" stop-opacity="0.3"><animate attributeName="stop-opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/></stop>
+            <stop offset="50%" stop-color="#64d8ff" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#ffd700" stop-opacity="0.3"><animate attributeName="stop-opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite" begin="1.5s"/></stop>
+          </linearGradient>
+        </defs>
+        <!-- Aurora glow behind -->
+        <ellipse cx="100" cy="140" rx="90" ry="70" fill="url(#auroraGrad)"/>
+        <line x1="145" y1="75" x2="155" y2="195" stroke="#ffd700" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="145" cy="68" r="12" fill="#ff6ec7" opacity="0.8"><animate attributeName="fill" values="#ff6ec7;#64d8ff;#ffd700;#ff6ec7" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="145" cy="68" r="5" fill="#fff" opacity="0.7"/>
+        <!-- Celestial Robe -->
+        <path d="M65,130 Q60,180 55,210 L145,210 Q140,180 135,130 Z" fill="url(#celestialGrad)"/>
+        <path d="M75,130 Q72,165 68,200 L132,200 Q128,165 125,130 Z" fill="url(#celestialGrad)" opacity="0.6"/>
+        <!-- Stars on robe -->
+        <text x="85" y="165" font-size="8" fill="#fff" opacity="0.8"><animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite">&#9733;</animate>&#9733;</text>
+        <text x="110" y="180" font-size="6" fill="#ffd700" opacity="0.7"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite" begin="0.5s">&#10022;</animate>&#10022;</text>
+        <text x="78" y="190" font-size="7" fill="#64d8ff" opacity="0.6"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite" begin="1s">&#10024;</animate>&#10024;</text>
+        <text x="120" y="160" font-size="5" fill="#ff6ec7" opacity="0.7"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite" begin="0.7s">&#9734;</animate>&#9734;</text>
+        <rect x="72" y="145" width="56" height="6" rx="3" fill="#ffd700"/>
+        <circle cx="100" cy="148" r="6" fill="#fff" opacity="0.8"/>
+        <circle cx="100" cy="105" r="32" fill="#fdd89b"/>
+        <ellipse cx="88" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <ellipse cx="112" cy="102" rx="4" ry="4.5" fill="#2d1b00"/>
+        <circle cx="90" cy="100" r="1.5" fill="#fff"/>
+        <circle cx="114" cy="100" r="1.5" fill="#fff"/>
+        <path d="M82,94 Q88,90 94,93" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M106,93 Q112,90 118,94" stroke="#6b4c2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M92,114 Q100,122 108,114" stroke="#c47a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="80" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <ellipse cx="120" cy="112" rx="7" ry="4" fill="#ffb5a0" opacity="0.4"/>
+        <path d="M78,118 Q82,140 100,148 Q118,140 122,118" fill="#e8e0d0" opacity="0.9"/>
+        <path d="M85,122 Q90,138 100,145 Q110,138 115,122" fill="#f5f0e5" opacity="0.6"/>
+        <!-- Aurora Crown (mythic hat) -->
+        <path d="M62,82 L70,55 L82,72 L100,42 L118,72 L130,55 L138,82 Z" fill="url(#celestialGrad)"/>
+        <circle cx="100" cy="50" r="5" fill="#fff" opacity="0.9"><animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/></circle>
+        <circle cx="78" cy="63" r="3" fill="#64d8ff"/>
+        <circle cx="122" cy="63" r="3" fill="#ff6ec7"/>
+        <rect x="62" y="78" width="76" height="6" rx="2" fill="#ffd700"/>
+        <circle cx="60" cy="165" r="10" fill="#fdd89b"/>
+        <circle cx="140" cy="155" r="10" fill="#fdd89b"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<p style="color:#a89ec9;margin-top:30px;font-size:.85rem;text-align:center">This is a preview only — your game is unchanged! Open <code>wizard-preview.html</code> in your browser.</p>
+
+</body>
+</html>
