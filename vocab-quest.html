@@ -894,6 +894,15 @@ body{
 .hw-svg{width:36px;height:48px}
 .hw-svg svg{width:100%;height:100%}
 
+/* Pixel art wizard canvases */
+.pixel-canvas{image-rendering:pixelated;image-rendering:crisp-edges}
+.start-pixel-wizard{display:flex;justify-content:center;margin:8px auto 4px}
+.start-pixel-wizard canvas{width:128px;height:128px}
+.hw-pixel{width:36px;height:36px}
+.hw-pixel canvas{width:100%;height:100%}
+.sum-pixel-wizard{display:flex;justify-content:center;margin:0 auto 10px}
+.sum-pixel-wizard canvas{width:120px;height:120px}
+
 /* Set bonus indicators */
 .set-bonus-active{font-family:Fredoka,sans-serif;font-size:.8rem;color:var(--teal);margin-top:6px;padding:4px 10px;background:rgba(139,26,26,0.1);border-radius:10px;border:1px solid rgba(139,26,26,0.2)}
 .set-bonus-partial{font-family:Fredoka,sans-serif;font-size:.7rem;color:var(--text-dim);margin-top:3px}
@@ -1078,6 +1087,8 @@ body{
     </div>
   </div>
 
+  <div class="start-pixel-wizard"><canvas id="startPixelCanvas" class="pixel-canvas" width="64" height="64"></canvas></div>
+
   <div class="card container" style="text-align:center">
     <div class="chapter-title">&#128221; Weekly Quiz Mode</div>
     <div class="quiz-toggle">
@@ -1249,11 +1260,11 @@ body{
 // matchWords = bold words (matching game)
 // sentenceWords = starred* words (sentence challenge)
 const WEEKLY_QUIZ={
-  label:'Ch 13–18 Quiz',
-  matchWords:['torrent','tribulations','reiterated','rigmarole','sublime',
-    'vale','inflection','ostentatiously','aesthetic','cloistered',
-    'staunchly','perusal','tenacity','relented','estranged'],
-  sentenceWords:['rigmarole','sublime','vale','aesthetic','staunchly']
+  label:'Ch 19–24 Quiz',
+  matchWords:['sated','sagely','arduous','capricious','pervade',
+    'harrowing','countenance','sojourn','eclipsed','demure',
+    'pithy','seraph','albeit','laudable','inclination'],
+  sentenceWords:['sagely','arduous','capricious','pithy','precarious']
 };
 
 // ===== DATA =====
@@ -1353,6 +1364,54 @@ const VOCAB={
     {word:'consequent',pos:'adj.',def:'logically consistent'},
     {word:'irradiated',pos:'v.',def:'show upon, lit up'},
     {word:'glens',pos:'n.',def:'narrow, secluded valleys'}
+  ],
+  19:[
+    {word:'tartly',pos:'adv.',def:'sharply; bitterly'},
+    {word:'sated',pos:'v.',def:'satisfied; gratified'},
+    {word:'dissipation',pos:'n.',def:'frivolous living'},
+    {word:'heedless',pos:'adj.',def:'thoughtless; unmindful'},
+    {word:'sagely',pos:'adv.',def:'wisely'},
+    {word:'arduous',pos:'adj.',def:'hard to achieve; difficult'}
+  ],
+  20:[
+    {word:'capricious',pos:'adj.',def:'unpredictable; fickle'},
+    {word:'pervade',pos:'v.',def:'to spread throughout, to permeate'},
+    {word:'limpid',pos:'adj.',def:'clear; transparent'},
+    {word:'harrowing',pos:'adj.',def:'extremely distressing'},
+    {word:'countenance',pos:'v.',def:'to support; to approve'},
+    {word:'inexorable',pos:'adj.',def:'unable to be persuaded, relentless'}
+  ],
+  21:[
+    {word:'presentiment',pos:'n.',def:'a vague expectation; premonition; omen'},
+    {word:'actuated',pos:'v.',def:'caused to move'},
+    {word:'sojourn',pos:'n.',def:'visit; stopover'},
+    {word:'eclipsed',pos:'v.',def:'deprived of prominence; surpassed'},
+    {word:'dyspeptic',pos:'adj.',def:'subject to indigestion'},
+    {word:'inveigled',pos:'v.',def:'persuaded with cunning, enticed'}
+  ],
+  22:[
+    {word:'sprite',pos:'n.',def:'elf or fairy'},
+    {word:'demure',pos:'adj.',def:'quiet; shy; reserved'},
+    {word:'deportment',pos:'n.',def:'manners; behavior'},
+    {word:'sonorous',pos:'adj.',def:'having a full, rich sound'},
+    {word:'pithy',pos:'adj.',def:'short and forceful'},
+    {word:'seraph',pos:'n.',def:'angel'}
+  ],
+  23:[
+    {word:'albeit',pos:'prep.',def:'although'},
+    {word:'discomfiture',pos:'n.',def:'disappointment; frustration'},
+    {word:'cultivated',pos:'v.',def:'intentionally improved or developed'},
+    {word:'entreated',pos:'v.',def:'pleaded; begged'},
+    {word:'precarious',pos:'adj.',def:'unstable; insecure'},
+    {word:'rendered',pos:'v.',def:'made'}
+  ],
+  24:[
+    {word:'sear',pos:'adj.',def:'scorched or withered'},
+    {word:'instinctively',pos:'adv.',def:'in a manner known or felt without having to learn; intuitive'},
+    {word:'contortions',pos:'n.',def:'twistings, things in a twisted state'},
+    {word:'laudable',pos:'adj.',def:'praiseworthy; commendable'},
+    {word:'tableau',pos:'n.',def:'a frozen scene (usually from history or literature)'},
+    {word:'inclination',pos:'n.',def:'leaning; partiality'}
   ]
 };
 
@@ -1428,7 +1487,43 @@ const SENTENCES={
   estranged:['The two sisters had been ___WORD___ for years after their argument.','He felt ___WORD___ from his old friends after moving to a new city.'],
   consequent:['Her argument was logical and ___WORD___ from start to finish.','The detective\'s ___WORD___ reasoning led straight to the culprit.'],
   irradiated:['The morning sun ___WORD___ the stained glass windows beautifully.','Her face was ___WORD___ with joy when she heard the good news.'],
-  glens:['They hiked through the shady ___WORD___ between the mountains.','The ___WORD___ were filled with wildflowers in the spring.']
+  glens:['They hiked through the shady ___WORD___ between the mountains.','The ___WORD___ were filled with wildflowers in the spring.'],
+  tartly:['"I don\'t think so," she replied ___WORD___, crossing her arms.','The critic ___WORD___ dismissed the movie in a single sentence.'],
+  sated:['After three helpings of pie, Anne was finally ___WORD___.','The lion, ___WORD___ from its meal, napped in the tall grass.'],
+  dissipation:['The old mansion had fallen into ruin from years of ___WORD___.','The young lord wasted his inheritance on ___WORD___ and wild parties.'],
+  heedless:['___WORD___ of the warning signs, he climbed over the fence.','She ran ___WORD___ into traffic chasing the runaway puppy.'],
+  sagely:['The old librarian nodded ___WORD___ at the student\'s question.','"Patience," he said ___WORD___, "is the key to learning."'],
+  arduous:['The ___WORD___ climb up the mountain took them three full days.','Preparing for the final exam was an ___WORD___ task.'],
+  capricious:['The ___WORD___ weather ruined their carefully planned picnic.','Her ___WORD___ cat would purr one moment and hiss the next.'],
+  pervade:['The smell of cinnamon began to ___WORD___ the entire kitchen.','Fear seemed to ___WORD___ the classroom before the big test.'],
+  limpid:['The ___WORD___ pond reflected every cloud in the sky.','Her ___WORD___ blue eyes were striking in the morning light.'],
+  harrowing:['The survivors shared their ___WORD___ tale of the shipwreck.','The ___WORD___ chase scene left the audience breathless.'],
+  countenance:['Marilla would not ___WORD___ such rude behavior at the dinner table.','The principal refused to ___WORD___ cheating of any kind.'],
+  inexorable:['The ___WORD___ march of time leaves no one behind.','The judge was ___WORD___ and would not reduce the sentence.'],
+  presentiment:['She had a strange ___WORD___ that something wonderful was about to happen.','A dark ___WORD___ filled him as he approached the old house.'],
+  actuated:['A sudden impulse ___WORD___ her to raise her hand in class.','He was ___WORD___ by a desire to help the lost little boy.'],
+  sojourn:['Their brief ___WORD___ in Paris became the highlight of the trip.','After a short ___WORD___ at the inn, the travelers continued on.'],
+  eclipsed:['Her sister\'s award completely ___WORD___ her own small trophy.','The new singer ___WORD___ every other performer at the festival.'],
+  dyspeptic:['The ___WORD___ old man complained about every meal he was served.','A ___WORD___ stomach kept him from enjoying the rich dessert.'],
+  inveigled:['Anne ___WORD___ Marilla into letting Diana stay for tea.','He ___WORD___ his way into the party without an invitation.'],
+  sprite:['Anne pretended to be a forest ___WORD___ dancing in the moonlight.','A tiny ___WORD___ was said to guard the old willow tree.'],
+  demure:['The ___WORD___ little girl curtseyed shyly to the minister.','She gave a ___WORD___ smile and looked down at her hands.'],
+  deportment:['Miss Stacy praised Anne\'s improved ___WORD___ at the Sunday dinner.','A lady\'s ___WORD___ in those days was watched by everyone.'],
+  sonorous:['The ___WORD___ voice of the choir filled the church.','Matthew\'s ___WORD___ laughter could be heard from the barn.'],
+  pithy:['Her grandfather was famous for his ___WORD___ advice on every subject.','The coach gave a ___WORD___ speech that the team never forgot.'],
+  seraph:['Anne imagined her mother looking down like a golden ___WORD___.','The painting showed a ___WORD___ with wings of pure light.'],
+  albeit:['She agreed to go, ___WORD___ reluctantly, to her cousin\'s party.','The cabin was cozy, ___WORD___ a bit dusty and small.'],
+  discomfiture:['Her ___WORD___ was obvious when she realized everyone had heard her.','To his great ___WORD___, he had worn mismatched shoes to school.'],
+  cultivated:['She ___WORD___ a lovely garden of roses and herbs.','Over the years, he ___WORD___ a deep love of classical music.'],
+  entreated:['Anne ___WORD___ Marilla to let her go to the picnic.','With tears in her eyes, she ___WORD___ him to stay just one more day.'],
+  precarious:['The old ladder was in a ___WORD___ position against the wall.','Her grades were in a ___WORD___ state after the failed test.'],
+  rendered:['The shocking news ___WORD___ her completely speechless.','His kindness ___WORD___ her unable to hold back her tears.'],
+  sear:['The ___WORD___ autumn leaves crunched beneath their boots.','By August, the ___WORD___ grass in the meadow had turned brown.'],
+  instinctively:['She ___WORD___ reached out to catch the falling vase.','He ___WORD___ knew which path led home without a map.'],
+  contortions:['The gymnast\'s amazing ___WORD___ drew gasps from the crowd.','He went through strange ___WORD___ trying to reach the itch on his back.'],
+  laudable:['Her ___WORD___ effort to help the younger students earned her an award.','Volunteering at the shelter was a truly ___WORD___ act of kindness.'],
+  tableau:['The children formed a Christmas ___WORD___ on the schoolhouse stage.','The museum\'s ___WORD___ showed pioneers cooking over an open fire.'],
+  inclination:['She had a natural ___WORD___ for painting and drawing.','His ___WORD___ toward kindness made everyone love him.']
 };
 
 // ===== BOOK CONTEXT QUOTES (Anne of Green Gables style) =====
@@ -1504,7 +1599,43 @@ const BOOK_QUOTES={
   estranged:'Anne and Diana were briefly estranged after the currant wine incident, and both were utterly miserable.',
   consequent:'Miss Stacy praised Anne\'s consequent reasoning in her essay on the history of Prince Edward Island.',
   irradiated:'Anne\'s face was irradiated with pure joy as she rounded the bend and saw Green Gables for the first time.',
-  glens:'The children explored the shady glens around Avonlea, pretending they were enchanted forests from storybooks.'
+  glens:'The children explored the shady glens around Avonlea, pretending they were enchanted forests from storybooks.',
+  tartly:'Marilla replied tartly that imagination was no excuse for leaving the kitchen in such a dreadful state.',
+  sated:'Anne sat back, sated at last from the enormous Sunday dinner Marilla had prepared for the minister.',
+  dissipation:'Mrs. Lynde clucked her tongue over the dissipation she swore was ruining the young men of Charlottetown.',
+  heedless:'Heedless of Marilla\'s warnings, Anne dashed across the wet field and arrived soaked to the skin.',
+  sagely:'Matthew nodded sagely as Anne explained, for the tenth time, why she simply had to have puffed sleeves.',
+  arduous:'The arduous walk home from school through the snow left Anne with red cheeks and frozen fingers.',
+  capricious:'The capricious April weather in Avonlea brought sunshine one moment and sudden showers the next.',
+  pervade:'The scent of apple blossoms seemed to pervade every corner of Green Gables that splendid spring.',
+  limpid:'Anne gazed into the limpid waters of the Lake of Shining Waters and saw her whole face reflected back.',
+  harrowing:'Anne related the harrowing tale of the haunted wood to Diana, who listened with wide, terrified eyes.',
+  countenance:'Marilla could not countenance Anne\'s plan to dye her hair, no matter how earnestly she begged.',
+  inexorable:'The inexorable approach of the Queen\'s entrance exam made Anne nearly ill with worry.',
+  presentiment:'Anne had a curious presentiment that something momentous would happen before the day was through.',
+  actuated:'Actuated by a sudden burst of affection, Anne threw her arms around Marilla\'s waist.',
+  sojourn:'Anne\'s sojourn at the White Sands Hotel felt like a glimpse into a world of impossible elegance.',
+  eclipsed:'Gilbert\'s perfect score eclipsed Anne\'s achievement, much to her great dismay that term.',
+  dyspeptic:'The dyspeptic old gentleman at the boarding house complained bitterly about Mrs. Barry\'s excellent cooking.',
+  inveigled:'Anne inveigled Diana into climbing the ridge-pole of the Barry\'s kitchen roof, with disastrous results.',
+  sprite:'Anne looked like a woodland sprite as she came dancing down the path with wildflowers in her hair.',
+  demure:'For once Anne managed to look demure at the tea party, keeping her hands folded in her lap.',
+  deportment:'Miss Stacy gave special lessons in deportment to prepare the girls for the entrance examinations.',
+  sonorous:'The minister\'s sonorous voice rolled through the little Avonlea church like distant thunder.',
+  pithy:'Mrs. Lynde offered her usual pithy opinion, which everyone in Avonlea felt obliged to hear out.',
+  seraph:'Anne gazed at the stained-glass seraph above the altar and imagined her mother watching over her.',
+  albeit:'Marilla agreed, albeit grudgingly, to let Anne attend the concert at White Sands.',
+  discomfiture:'Anne\'s discomfiture was complete when she discovered she had worn her apron to the picnic.',
+  cultivated:'Matthew had quietly cultivated a small patch of roses behind the barn, just to please Anne.',
+  entreated:'Anne entreated Marilla on bended knee to let her keep the little yellow kitten she had found.',
+  precarious:'Anne stood in a precarious position on the ridge-pole before tumbling down into the porch below.',
+  rendered:'The sight of puffed sleeves rendered Anne absolutely speechless with joy that Christmas morning.',
+  sear:'Sear October leaves carpeted the path to the Lake of Shining Waters in shades of rust and gold.',
+  instinctively:'Anne instinctively reached for Matthew\'s hand whenever she felt nervous about meeting strangers.',
+  contortions:'The contortions of Anne\'s face as she tasted the bitter medicine made Marilla laugh in spite of herself.',
+  laudable:'Miss Stacy called Anne\'s determination a truly laudable quality that would serve her well in life.',
+  tableau:'The schoolchildren presented a Christmas tableau of the nativity, with Anne as a radiant angel.',
+  inclination:'Matthew always had an inclination to spoil Anne, no matter what Marilla said about strictness.'
 };
 
 // ===== TEACH IT BACK DATA =====
@@ -1580,7 +1711,43 @@ const TEACH_HINTS={
   estranged:{best:'Separated from someone due to conflict',vague:'Having a relationship issue',wrong:'Brought closer together by shared experiences'},
   consequent:{best:'Following logically from what came before',vague:'Related to results',wrong:'Random and unconnected to previous events'},
   irradiated:{best:'Lit up or made to glow with light',vague:'Something happened with light',wrong:'Made completely dark and impossible to see'},
-  glens:{best:'Narrow, hidden valleys tucked between hills',vague:'Places in nature',wrong:'Wide open plains stretching to the horizon'}
+  glens:{best:'Narrow, hidden valleys tucked between hills',vague:'Places in nature',wrong:'Wide open plains stretching to the horizon'},
+  tartly:{best:'Speaking sharply with a bitter edge',vague:'A way of saying something',wrong:'Speaking with warm, gentle kindness'},
+  sated:{best:'Completely satisfied, usually after eating',vague:'Feeling a certain way',wrong:'Still desperately hungry and unsatisfied'},
+  dissipation:{best:'Wasteful, frivolous, reckless living',vague:'A way people live',wrong:'Careful, disciplined, responsible habits'},
+  heedless:{best:'Not paying attention to warnings or danger',vague:'Not thinking much',wrong:'Carefully cautious and alert to every risk'},
+  sagely:{best:'In a thoughtful, wise manner',vague:'Speaking in some way',wrong:'Foolishly and without any wisdom'},
+  arduous:{best:'Very hard and requiring lots of effort',vague:'Not easy',wrong:'Simple and effortless to finish'},
+  capricious:{best:'Changing suddenly and unpredictably',vague:'Acting a certain way',wrong:'Steady, reliable, and never changing'},
+  pervade:{best:'To spread through every part of something',vague:'To move around',wrong:'To stay contained in one tiny spot'},
+  limpid:{best:'Perfectly clear and transparent',vague:'A way something looks',wrong:'Murky, cloudy, and impossible to see through'},
+  harrowing:{best:'Extremely distressing or frightening',vague:'A strong experience',wrong:'Soothing and deeply relaxing'},
+  countenance:{best:'To support or give approval to something',vague:'To do something about it',wrong:'To strictly forbid and condemn'},
+  inexorable:{best:'Impossible to stop, persuade, or change',vague:'A strong quality',wrong:'Easily swayed by a kind word'},
+  presentiment:{best:'A vague feeling that something is about to happen',vague:'A thought you have',wrong:'A clear memory of something that already happened'},
+  actuated:{best:'Caused to take action or move',vague:'Something that happened',wrong:'Stopped completely from moving'},
+  sojourn:{best:'A short visit or temporary stay',vague:'Being in a place',wrong:'A permanent move to a new home'},
+  eclipsed:{best:'Outshone or surpassed by something greater',vague:'Something that happened with it',wrong:'Highlighted and made to stand out above all'},
+  dyspeptic:{best:'Having a grumpy stomach and bad digestion',vague:'Not feeling great',wrong:'Enjoying rich meals with perfect health'},
+  inveigled:{best:'Tricked or coaxed into something with clever words',vague:'Got someone to do a thing',wrong:'Forced someone through direct threats'},
+  sprite:{best:'A tiny fairy or elf-like creature',vague:'A kind of being',wrong:'A giant ogre from old legends'},
+  demure:{best:'Quiet, shy, and modestly reserved',vague:'A kind of personality',wrong:'Loud, bold, and attention-grabbing'},
+  deportment:{best:'The way a person carries themselves; manners',vague:'Something about people',wrong:'The clothes someone chooses to wear'},
+  sonorous:{best:'Having a deep, rich, full sound',vague:'Related to noise',wrong:'Thin, squeaky, and barely audible'},
+  pithy:{best:'Short, clever, and full of meaning',vague:'A way of talking',wrong:'Long, rambling, and boring'},
+  seraph:{best:'A high-ranking angel from heaven',vague:'A spiritual being',wrong:'A wicked demon from the underworld'},
+  albeit:{best:'Even though; although',vague:'A connecting word',wrong:'Because of that reason'},
+  discomfiture:{best:'Awkward embarrassment or frustration',vague:'An uncomfortable feeling',wrong:'A proud feeling of total triumph'},
+  cultivated:{best:'Grew or developed something on purpose',vague:'Did something to it',wrong:'Let something go wild and untended'},
+  entreated:{best:'Begged or pleaded earnestly',vague:'Asked for something',wrong:'Ordered with strict authority'},
+  precarious:{best:'Dangerously unstable and ready to fall',vague:'Not great',wrong:'Rock-solid and perfectly secure'},
+  rendered:{best:'Caused something to become a certain way',vague:'Did something',wrong:'Left something completely unchanged'},
+  sear:{best:'Dried up, withered, or scorched',vague:'A way something looks',wrong:'Fresh, green, and bursting with life'},
+  instinctively:{best:'Done without thinking, from natural instinct',vague:'Doing things a way',wrong:'Done only after long, careful thought'},
+  contortions:{best:'Twisted, unnatural body positions',vague:'Movements you can see',wrong:'Perfectly straight, stiff postures'},
+  laudable:{best:'Deserving of praise and admiration',vague:'A good kind of thing',wrong:'Deserving scorn and harsh criticism'},
+  tableau:{best:'A silent, frozen scene like a living picture',vague:'A display of some kind',wrong:'A fast-paced action movie scene'},
+  inclination:{best:'A natural tendency or preference',vague:'A thing about a person',wrong:'A strong dislike or aversion to something'}
 };
 const TEACH_SENTENCES={
   admonished:{best:'The teacher admonished the students for talking during the test.',awkward:'She admonished him and then they went home.',wrong:'He admonished his friend with a warm hug and a gift.'},
@@ -1654,7 +1821,43 @@ const TEACH_SENTENCES={
   estranged:{best:'The estranged siblings hadn\'t spoken to each other in five years.',awkward:'They became estranged at some point during that time.',wrong:'The estranged couple spent every moment happily together.'},
   consequent:{best:'Her consequent reasoning convinced the jury that the facts fit together.',awkward:'The consequent outcome was noted by everyone there.',wrong:'His consequent argument jumped randomly between unrelated topics.'},
   irradiated:{best:'The setting sun irradiated the clouds with shades of gold and pink.',awkward:'The area was irradiated during the late afternoon.',wrong:'The room was irradiated, leaving it pitch black and impossible to see.'},
-  glens:{best:'They hiked through the misty glens hidden between the Scottish hills.',awkward:'The glens were part of the landscape they visited.',wrong:'The flat, treeless glens stretched wide across the open desert.'}
+  glens:{best:'They hiked through the misty glens hidden between the Scottish hills.',awkward:'The glens were part of the landscape they visited.',wrong:'The flat, treeless glens stretched wide across the open desert.'},
+  tartly:{best:'"I don\'t agree at all," she replied tartly, turning away.',awkward:'She tartly said something during the discussion.',wrong:'He tartly whispered sweet, loving compliments in her ear.'},
+  sated:{best:'After the huge feast, the guests were thoroughly sated.',awkward:'They were sated after the thing they did.',wrong:'Still sated from hunger, he begged for another plate of food.'},
+  dissipation:{best:'Years of dissipation left the young lord penniless and alone.',awkward:'The dissipation was something people talked about.',wrong:'Her dissipation showed in her strict schedule and careful savings.'},
+  heedless:{best:'Heedless of the "wet paint" sign, he leaned right against the wall.',awkward:'She was heedless about the matter that day.',wrong:'Heedless as always, she double-checked every warning before moving.'},
+  sagely:{best:'The old teacher nodded sagely and offered her a piece of advice.',awkward:'He spoke sagely at the gathering on Sunday.',wrong:'She sagely blurted out the silliest answer anyone had ever heard.'},
+  arduous:{best:'The arduous climb up the cliff took the hikers all afternoon.',awkward:'The arduous task was part of what they did.',wrong:'The arduous walk to the mailbox only took five relaxing seconds.'},
+  capricious:{best:'Her capricious moods made it impossible to plan anything with her.',awkward:'His capricious nature was noticed by his friends.',wrong:'The capricious clock kept perfect, reliable time for fifty years.'},
+  pervade:{best:'The smell of fresh bread began to pervade the entire house.',awkward:'The feeling pervaded the room during the meeting.',wrong:'The noise managed to pervade only one single corner of the gym.'},
+  limpid:{best:'The limpid water of the spring showed every pebble on the bottom.',awkward:'Her eyes were limpid during the conversation.',wrong:'The limpid swamp water was thick, muddy, and impossible to see into.'},
+  harrowing:{best:'The survivors shared their harrowing account of the earthquake.',awkward:'The harrowing thing was discussed afterward.',wrong:'The harrowing bubble bath was so relaxing she nearly fell asleep.'},
+  countenance:{best:'The coach refused to countenance any bullying on his team.',awkward:'He would not countenance the thing they wanted.',wrong:'She countenanced his cheating by reporting him immediately.'},
+  inexorable:{best:'The inexorable rising of the tide eventually swallowed the sandcastle.',awkward:'The inexorable force continued through the night.',wrong:'The inexorable judge changed her mind every five minutes.'},
+  presentiment:{best:'She had a presentiment that a letter was waiting for her at home.',awkward:'His presentiment came to him that morning.',wrong:'His clear presentiment was a detailed memory of last Tuesday\'s lunch.'},
+  actuated:{best:'A pang of guilt actuated him to apologize right away.',awkward:'He was actuated by something at the meeting.',wrong:'The stuck machine was actuated by being completely turned off.'},
+  sojourn:{best:'Their brief sojourn in the mountain cabin refreshed everyone.',awkward:'The sojourn happened during the summer months.',wrong:'Their permanent sojourn lasted for the rest of their lives.'},
+  eclipsed:{best:'Her brilliant performance eclipsed every other act in the show.',awkward:'The eclipsed thing was noticed by the audience.',wrong:'His small achievement eclipsed the champion\'s world record.'},
+  dyspeptic:{best:'The dyspeptic patient could only eat plain toast and weak tea.',awkward:'He was dyspeptic that whole evening.',wrong:'The dyspeptic chef enjoyed spicy, rich, heavy meals without trouble.'},
+  inveigled:{best:'She inveigled her brother into doing her chores with clever flattery.',awkward:'He inveigled them into the thing somehow.',wrong:'He inveigled the guard by punching him in the face.'},
+  sprite:{best:'A tiny sprite was said to dance in the forest under the full moon.',awkward:'The sprite was part of the story she told.',wrong:'The enormous sprite stomped through the village, crushing houses.'},
+  demure:{best:'The demure young girl barely spoke above a whisper all evening.',awkward:'Her demure nature was seen by everyone.',wrong:'The demure rock star screamed into the microphone for two hours.'},
+  deportment:{best:'Her graceful deportment at the formal dinner impressed everyone.',awkward:'The deportment of the students was something noted.',wrong:'His deportment was the bright blue jacket he wore to the party.'},
+  sonorous:{best:'The sonorous bells of the cathedral rang out across the valley.',awkward:'His sonorous voice was heard throughout the hall.',wrong:'Her sonorous whisper was so faint nobody could hear a word.'},
+  pithy:{best:'His pithy remark summed up the whole problem in one sentence.',awkward:'The pithy comment was made during the meeting.',wrong:'Her pithy speech rambled on for three hours without any point.'},
+  seraph:{best:'The stained glass showed a seraph with golden wings outspread.',awkward:'The seraph was part of the painting they saw.',wrong:'The wicked seraph laughed cruelly as it tormented the villagers.'},
+  albeit:{best:'She agreed to help, albeit with some grumbling along the way.',awkward:'He went along, albeit, to the event that night.',wrong:'She didn\'t help, albeit she enthusiastically did everything.'},
+  discomfiture:{best:'To his great discomfiture, he tripped right in front of his crush.',awkward:'Her discomfiture was obvious to all present.',wrong:'His total discomfiture came from winning the big trophy.'},
+  cultivated:{best:'She cultivated a beautiful vegetable garden over many seasons.',awkward:'He cultivated the habit during his college years.',wrong:'She cultivated her garden by ignoring it and letting weeds take over.'},
+  entreated:{best:'The children entreated their parents for just five more minutes at the park.',awkward:'She entreated him about the matter at hand.',wrong:'He entreated them by sternly commanding them to obey.'},
+  precarious:{best:'The vase teetered in a precarious position on the edge of the shelf.',awkward:'The situation was precarious during the afternoon.',wrong:'The precarious foundation of the fortress had stood firm for a thousand years.'},
+  rendered:{best:'The bad news rendered her unable to speak for several minutes.',awkward:'The thing was rendered after the event.',wrong:'The shocking surprise rendered him completely unchanged and unbothered.'},
+  sear:{best:'The sear grass in the August meadow crackled underfoot.',awkward:'The sear landscape stretched out before them.',wrong:'The sear spring buds bloomed with bright, fresh green leaves.'},
+  instinctively:{best:'She instinctively ducked when she heard the loud crash behind her.',awkward:'He instinctively did the thing during the moment.',wrong:'He instinctively solved the problem after weeks of careful study.'},
+  contortions:{best:'The yoga teacher twisted her body into impossible contortions.',awkward:'The contortions were part of the performance.',wrong:'His contortions consisted of standing perfectly straight and still.'},
+  laudable:{best:'Her laudable effort to help the homeless shelter earned community praise.',awkward:'The laudable action was noticed by the group.',wrong:'His laudable crime spree shocked and horrified the entire town.'},
+  tableau:{best:'The students formed a silent tableau representing the first Thanksgiving.',awkward:'The tableau was set up in the main hall.',wrong:'The noisy, fast-moving tableau featured actors running and shouting.'},
+  inclination:{best:'She has always had an inclination toward music and poetry.',awkward:'His inclination was clear to those who knew him.',wrong:'Her strong inclination to exercise kept her from ever leaving the couch.'}
 };
 
 // ===== PRAISE & ENCOURAGEMENT =====
@@ -1765,6 +1968,83 @@ const GACHA_ASSETS={
   cardMythic:'data:image/png;base64,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',
   sparkleBurst:'data:image/png;base64,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'
 };
+
+// ===== ANIMATED PIXEL WIZARD SPRITES (base64 frames from PixelLab) =====
+const WIZARD_SPRITES={
+  breathingIdle:{
+    south:[
+      'data:image/png;base64,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',
+      'data:image/png;base64,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',
+      'data:image/png;base64,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',
+      'data:image/png;base64,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'
+    ]
+  },
+  hurricaneKick:{
+    south:[
+      'data:image/png;base64,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',
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFbUlEQVR4nO2ab0xVZRjAf1dBeLkciHsRuKYoIAgoWeaU2VrSpElttqUjpxnWh1pZH1pupm6uP7ZZza1ZmqvNNG1RQTPb0l3b1C+lS5miEeDwejUB0YvCvZcDwjh9uNzDuUC6ufue6+z8trN7zvuec97ned7n/fM854KFhYWFhYWFhYWFxf8RWywbV4TQXMl22gJBXMn2iLq2QBC/qkqXL2YGUITQ3lmYHVG256SPqrlOAIK9PdScU2m+dl2qjONkvvw2jFIeQr0exp6YRNVcJ4oQmkxBTDeAIoS2oWwKwd4eALIz8iiet4QtRy8xP8tBsLdHPwDeLE2XaoQ4WS++E/bEJAD+vnQWe0cLflUlx2GnKHu6Xj67eCZnGv4KP6IhYcia7QHa/CwHTW0TqPMMUOcZ0A2hCMG0DBtp6YlAyEA/Hz3HkcYAvkO7pQlkqgcoQpCakBhRVucZwO1tZXnxlCGjnAFgTk4c1Q2XdeUVIfCratRlitUkeEf2nPTh3bdVejsxmwOM+FUVT2dQ9w63txVffQ3Oh5YB8MbjL0pr+54wAEBqQiJdfb2caO/EV1/DhPxnOHGqnpKSPDJT06W4P5g8BG6nxFlfF7+6v9SvFSE43tIKwOx166XJdE/MAUsL80KboNZAqGDoN3FyDgAXan9CEUJK26Ya4E5KfLJlEzsqywDwHdrN1mcf48kF5Vz8XJ4HmD4HdPX1jloKjeQXzAidTErm3O97hr1CEqYPgdspX+cZoHzzTgAC9d6Q8pOSpcpzz0yCYzKkvHPxammhsek7QSNubyulqes53L4pos65eDUQYTBpIXHMPMDtbaVqZjUZopjK3F34VRWHfTx+VR2p+P2TD1CEoLaxBbe3lbee+AVHup1+WzfxWgoAxy518mReJXAXw+UuMdsDbIoQVLi262Vh5RUhaL52nfHBWeEqU7JVpq8Cxp7tGwzwtVug5F7Br6qszKnB03PEVHlishOM11JIsK3hvc9aGJi6kG07Q0mQNGd8+BbTcpWxSIlxoH0ViQ8Mcvi7bcR5jwIQOLaFVzbUkj1xoqnyxCIrrAF8WDGDzGl+MjNDvV5W9hoTJpUwLn0ycWmz708PUITQyrPeH7Ouunobp91fcHLHbhblPCg1E2zENAMoQmgVru2kJU1GEYKNB5v4uOYW04syOH+6DYCr185SvnknDtsHZollmgG08NL3w4WXAdhb9TR7135D0fN/kuJKp+umnRUfdQD60qgZD2NqXBFCi1aq3PRoUBEC776tNDee55HnNG6Vfs+sZWt4dZEdV7Kd5Y9WA7Aufz8Awc7QdHCo+VPguOZKtlM118nGg01RkUe6ByhCaJW5u4DhTc/UF96moDBfD3Xratby7v5/GOwroW8wQN/gcAhsd2jYHRorFmwkrPyRxuiFyKZ4QLyWQr+tW78uTV2PY+nrdNbuYN5LP3K1/zgVru0UFmRHKD+StkCQix2OqMom1QDhiQ8tZIRvPaEsb0ZWMRDyBL+qsu6p/SSMS6bzepAbvoEx3/VwbpH+Bfk3z5WoySjTANqSrL1Dq/4wihD027pZmVMTUd7SdFM/NwZIYc85feGPoY+nugdEZa9gej5gZJSX5own2Dn6XqMRwiuHIgRfnWqGKG7gpBog3HvxWgoH2lfpAY/RK274+kc9F54zws8wpLCMEFmWAbTK3F16D8Kw8EajjEW/rVvvcUzYqstqQDOO8QPtq/Tz/+rFcErM2ONmIGMfELHf71AbgFAyxK+qLC3MG+sZ21C99BTYSKQMgendLnxJY7vynJw4HPYC/d7qhsumpb/GQoa1jQvfyPdrihAR/wgz699gFhYWFhYWFhYWFhYWFgb+BdnuAz8FTqQWAAAAAElFTkSuQmCC',
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEeElEQVR4nO2aTWhcVRTHfxPNx83My8fMJCQ1RJKp05haxY+m1U0NVEgFU6UhDdSSbtxYXAmiC7twoxuhC+NKQgIKWVgo2TRoQXGhBmJo0UInTRhaYhPamdcmk9eXMGOei5n7eDNNowXvndq+Hwy8z3nn/M8599537wMfHx8fHx+fR5VAOR4ab4o6S2vWttdkbFuLbdoFiDdFneGXIljrdwjW1ALw2Y/XeG9/lGBNrXt8fCbN3M2UcvsqVD/AiyGEM/CMAHCdL0WK8PHrPRhCOKpt0imA8+Gr7dteYK3fcbcbozV8OdirXARtAhhCMJvM0X9woMhRgIxtF2XE0+17ALh2Y4GMbSu1S5cAzr6WMABX5hLcXBW0N8eoadiku6cfQ+TL4pUX9tLd089Pf8xzK7XObDLHka6Y0ix4XNUfezGEoL66BoCz0wnCwccAaK56itaqnBvlbCgGQNK0MKcTOkzTI0BpGpvWX5wtOPgmeYHGZ9IMM8lsMueKJWkNBZWVgpYSkCm+FVKIPZF6ZpM5HeYUoUWAf4qe6oZuO7SOA+7FwY4nyvbsB0KA0prXyQMhQDnxBSi3AeXGF6DcBpQbnfMBzpGu2H3f9N3V60onR7QKAPBvRThzeQHIjyJVCqC1BF5r+YTf0yvu/srG+pbXnbm8wGDnqHLnQdPLEOAYQrCr7Tlejk7wy4Wf+XXlU3cIXHDU3T7W8S1ZVrUYplRd+R6/d8cbdDceAyAcDWKmLG6Y6W3v7Yq3Y6Ysxi8N/T9LwBDCufr154wefrfouJmy+GLm8Lb3NocjQF4s1ShR1hDCSU+NwY4QAJFnB9hf/xHNopvJ5eMcah0BoNKpAyAbKE73c0snGd494WaLyixQ1gaspdKECgKkp8aI9J2Alft79TVTFrfSWUUW5lFSAhnbDjz59vtwfQ2ASN8JMrYd8Dovo++l0qmjK95OxrZJLF5kau400+kR0lNjUOhG/2uUZUDGtgNVB4469+rKYrsa2Nhco7oixMZmsRmGEHy/fApDCOm8MlR3g4HSlDeEKIq+FEFue9ExU6RrHFBENrB6V9TNlEU4GvIeChhCOFUHjrr7KmzR/jIke4DqipAbeYnMABn5QunInxK0C7BV+kvHLTNwVxmoRufSmDPYObrlOcsMkFi8SDDsUF0R4lTfeXbW9SpfGAWNAmRs241+x86wG+mJ34YYvzREY21bUWPYUdurxa6yT4i89fxXbs1vbK65ZdFY2/bwLI9LR0qHvJBPf0ly3gSKu8OHZnl8sHO0qAGU6T41dxrIN46VTp3bOzSHIwzvnlBul9bF0WxglUqnjsUrOeA2APOrP2AI4cmOBgCCYcfNCJVoWx73IoWQTh9qHXH3FxK3AWiMVHIh84Hy0aCuOUEH8mUgkeXwTXLAPSbPn1s66XVcqY26vxJzSkWYXD7OvpYw55N/AuonQUvRKoC3RfemtndOULdNWqfF33kx7u4kTYvpZVNrtLdCqwDxpigA8ivRQtTLKoCPj4+Pj4+Pj4+Pj88jyd9bW76izzr6kQAAAABJRU5ErkJggg==',
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFhUlEQVR4nO2afUyUdRzAPw8Ix+NzB3ovymGAph5G4Ny0MM0tySnkcG2RsxzJMFdJtrWWNauVtZWby02NTWtrVjqUaUtbEjd8K2u5mU1MB5jAkXAE3MnLnQcoPv0BnHfx4srneW6z57M9u+f5Pb/7vXyf7+/78nse0NHR0dHR0dHR0flfIqjdgUkU5dHudQcCqvd/J8ap3L68Kj2ZqZPC5xk34RY9HVFsOdkoR1oIUWo1bBJFedPiZGzxAQC2nGwEwN9znbSkTAA2zLfisFlH1RAtUEsAclaimQdSMoMFG+Zbeau8BktiHFZzKv6e6wDkZ4hjLhO1UVwAJlGU+04dIMEQF1YuxY1n3VwHr5Ve5tjpo7R1iUp3/Z9QXADdgUDYtRQ3nscffQIgaAsaWmW8/n5q3LHUuGPJSjRHTAtUswGl3+5gfdkJANx942holTlXf5OnZk1n/6U/w+omGOKwGyW1hjIm6niBJCMAnu/3YMkpZGn916p0owSqucGMBWtw+/x4qg6SsWANAClGwzDbEGlUWQKW2flkbnyfF/fvI3bmcn75xonb5+eo81M6e3uG2YlIooYXYF7OMqImm9mcuwyHzUrvqaqBSTf78FlSle7yrlDFCzSdPg2Au60dAMvTNhw2K752Dxcv/qZ0l3eF4mGoSRRlT9VBnsl7hUPVV+g7dSB4LyO/mBSjgTMtXpamJoX974Knk9q2ds3DYtWMYOnuD4eVuX1+Mi0J97YNCJJk5LvjZ3H13o74xvL1mZaEiOQFatgAwTI7H5p9LM+eR6ph4GlbcgqpHbQJJlHE6WrmgqdT6e7/Naosge5AQLDkFMrdgQAmMTzm7+ztASDXXsK161dxuj4aZg+0RLUlMJjnC0P5fncgwIz4xVTWN5FrL2GWI4VH5ixgReJXHKq+otYw7oh6NmAEUmy2YWUTLTFkT1+J09UcES+giQCGtOD4lbJg2ds7e9m0/TySWSZ94mothjEimmmASRR5PbYCKSaNXVt7iLLeR1XlCRZlfonZGplMENTfEwyjeUo3e59bQXz2Quq3FfDjHwEcaX3MnLwNu1GKSHyg2ZoziaJ89ecCpKnFXHY+z08nmwDo7JDYXXkN0fss5/t3aDom0FADHkrK44fDFSRYjgEDEx/cGca192OSV22HfgBkNBSCZjagsa2NHbvW0um5Se2l2zvF5w4fID57IZ2tZThsVl4a/xlSTJpmEaEiAjCJohy6pxdyHXrQL/1O3nsuOjskEib4sRslUg0BbrVfBQZyBU9iNMuT39Bsj1ARVTOJovzmYymcq7+J09UMwPpFpQD4vQNdSGY5eO50rWVjfiyv7rnGsU+2kj7Dx5OFOzELHwAQI8cDsK8+X7ExjoZiS+CLsx7MUjQAax7cjyHKGJzwkJszWyUks0z27HcA2Lysn4fXvsycvAqEwAuU1RUF27shdCk1tDFRTABun3/YK7BWryc4eUOUMfibEJ3KXw0m3q2IxiSKZFmKmSSmYxJFyt3FwG0tUBul1EsGWDJtCmdavOTaS4CBSdwQuoKTGTqfnjYBb7ufVq8nrB5AWV0RK+//PFhW7i5W9SWqUhogAEJlfVNY4UhqfEPoorq2EbNVYpYjJSic0Cceep5rL1HVICrtBoXuQIBydzFldUWjrukYOZ4rNR2jNjJo/DRBjThgKAUWAKGsrogjLQUjVqyubRy1kVCBqakFWkSCQ1oR3CDJtZeE2YUh/mn4Qq/VyhMi9XHCnZ6mAMirpx0MK1QjLtB0QyQEIeTAJIqYRJEl06aE1TnSUhDUELXigoh/owPI6+Y6mDpJoKFV5rNfayF8XPKM+MVkWYo1cYuaM5Q3OGzW0PxhJGRAjuTXJDo6Ojo6Ojo6Ojo6Ojo69wh/A3W+/2elxQ99AAAAAElFTkSuQmCC'
+    ]
+  }
+};
+
+// Sprite animation engine for pixel art
+class SpriteAnimator{
+  constructor(canvas,opts={}){
+    this.canvas=canvas;
+    this.ctx=canvas.getContext('2d');
+    this.fps=opts.fps||6;
+    this.loop=opts.loop!==undefined?opts.loop:true;
+    this.onComplete=opts.onComplete||null;
+    this.frames=[];
+    this.frameIdx=0;
+    this.interval=null;
+    this.ready=false;
+  }
+  loadFrames(b64Arr){
+    return Promise.all(b64Arr.map(src=>{
+      return new Promise((res,rej)=>{
+        const img=new Image();
+        img.onload=()=>res(img);
+        img.onerror=rej;
+        img.src=src;
+      });
+    })).then(imgs=>{this.frames=imgs;this.ready=true;return this});
+  }
+  play(){
+    if(!this.ready||this.frames.length===0)return;
+    this.stop();
+    this.frameIdx=0;
+    this._render();
+    this.interval=setInterval(()=>{
+      this.frameIdx++;
+      if(this.frameIdx>=this.frames.length){
+        if(this.loop){this.frameIdx=0}
+        else{this.stop();if(this.onComplete)this.onComplete();return}
+      }
+      this._render();
+    },1000/this.fps);
+  }
+  stop(){if(this.interval){clearInterval(this.interval);this.interval=null}}
+  _render(){
+    const f=this.frames[this.frameIdx];
+    if(!f)return;
+    this.ctx.imageSmoothingEnabled=false;
+    this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+    this.ctx.drawImage(f,0,0,this.canvas.width,this.canvas.height);
+  }
+}
+
+// Pixel wizard animator instances
+let _pxStartAnim=null,_pxHudAnim=null,_pxSumAnim=null;
+
+function initPixelWizard(){
+  const idle=WIZARD_SPRITES.breathingIdle.south;
+  // Start screen
+  const sc=document.getElementById('startPixelCanvas');
+  if(sc){_pxStartAnim=new SpriteAnimator(sc,{fps:4,loop:true});_pxStartAnim.loadFrames(idle).then(a=>a.play())}
+}
 
 // ===== GACHA ITEMS (48 total: 16 per category) =====
 // Each item: {id, name, emoji, rarity, power, powerTier(1-4), set(null|string), desc}
@@ -1980,6 +2260,7 @@ function init(){
   document.getElementById('parentBtn').onclick=()=>{document.getElementById('parentPanel').classList.toggle('open');updateParent()};
   document.getElementById('parentClose').onclick=()=>document.getElementById('parentPanel').classList.remove('open');
   updateMiniWizard();
+  initPixelWizard();
 }
 
 function makeStars(){
@@ -1995,8 +2276,9 @@ function makeStars(){
 function buildChapters(){
   const g=document.getElementById('chGrid');
   const weeks=[
-    {label:'This Week',badge:'now',cls:'current',chs:[13,14,15,16,17,18],defaultOn:true},
-    {label:'Last Week',badge:'prev',cls:'previous',chs:[7,8,9,10,11,12],defaultOn:false}
+    {label:'This Week',badge:'now',cls:'current',chs:[19,20,21,22,23,24],defaultOn:true},
+    {label:'Last Week',badge:'prev',cls:'previous',chs:[13,14,15,16,17,18],defaultOn:false},
+    {label:'Week 1',badge:'prev',cls:'previous',chs:[7,8,9,10,11,12],defaultOn:false}
   ];
   weeks.forEach(w=>{
     const allOn=w.defaultOn;
@@ -2190,6 +2472,10 @@ function showScreen(id){
     document.getElementById('studyPanel').classList.remove('open');
   }
   setTimeout(updateStudyBtnVisibility,50);
+  // Manage pixel wizard animation lifecycle
+  if(_pxStartAnim){id==='startScreen'?_pxStartAnim.play():_pxStartAnim.stop()}
+  if(_pxHudAnim){id==='gameScreen'?_pxHudAnim.play():_pxHudAnim.stop()}
+  if(_pxSumAnim&&id!=='sumScreen'){_pxSumAnim.stop()}
 }
 
 // ===== HUD =====
@@ -2673,6 +2959,186 @@ function renderR3(card,entry){
       'The glens towered above the clouds like mountain peaks.', // wrong: glens = narrow valleys, they don\'t tower
       'From the glens, they looked down at the valleys far below.', // wrong: glens ARE valleys
       'The wide, open glens stretched as far as the eye could see.' // wrong: glens = narrow and secluded, not wide and open
+    ],
+    tartly:[
+      'She replied tartly with a warm hug and a sweet compliment.',
+      'He spoke tartly, his voice oozing with honey and affection.',
+      'The chef tartly seasoned the cake with extra sugar and frosting.'
+    ],
+    sated:[
+      'Still sated from his long fast, he begged for just one small crumb.',
+      'The starving travelers were completely sated before even reaching the village.',
+      'Her sated appetite made her eat three more entire pizzas.'
+    ],
+    dissipation:[
+      'His life of dissipation included early bedtimes and careful saving.',
+      'The monks were known for their scandalous dissipation and disciplined prayer.',
+      'She cured her dissipation by throwing wilder and wilder parties.'
+    ],
+    heedless:[
+      'Heedless of danger, she carefully read every warning sign twice.',
+      'He was heedless about the rules, so he followed them perfectly.',
+      'The heedless driver stopped at every single stop sign, just in case.'
+    ],
+    sagely:[
+      'He spoke sagely, blurting out the silliest thing anyone had ever heard.',
+      'The fool sagely declared that the moon was made of cheese.',
+      'She nodded sagely and then immediately made the worst possible choice.'
+    ],
+    arduous:[
+      'The arduous task of opening a jar of jelly took him two easy seconds.',
+      'Their arduous vacation was spent napping in hammocks by the pool.',
+      'The arduous homework was a single quick multiple-choice question.'
+    ],
+    capricious:[
+      'The capricious old clock kept perfectly steady time for a hundred years.',
+      'Her capricious routine never changed, not even by a single minute.',
+      'His capricious loyalty meant he always stuck with his friends no matter what.'
+    ],
+    pervade:[
+      'The tiny smell managed to pervade only one small corner of the box.',
+      'A single whisper began to pervade one single ear in the crowd.',
+      'The warmth failed to pervade and stayed trapped in one isolated spot.'
+    ],
+    limpid:[
+      'The limpid swamp water was thick, muddy, and impossible to see through.',
+      'Her limpid eyes were so cloudy she could barely see out of them.',
+      'The limpid pond was filled with murky algae and brown sludge.'
+    ],
+    harrowing:[
+      'The harrowing spa day left her completely relaxed and glowing.',
+      'The children loved the harrowing bedtime lullaby that put them right to sleep.',
+      'His harrowing ice cream sundae was the most delightful treat ever.'
+    ],
+    countenance:[
+      'She countenanced his bad behavior by punishing him and grounding him.',
+      'The coach refused to countenance winning, insisting his team must lose.',
+      'Marilla strongly countenanced lying by reporting it immediately.'
+    ],
+    inexorable:[
+      'The inexorable judge changed her verdict after hearing one kind word.',
+      'His inexorable march was stopped easily by a gentle breeze.',
+      'The inexorable tide politely retreated after being asked nicely.'
+    ],
+    presentiment:[
+      'Her clear presentiment was a detailed memory of last week\'s lunch.',
+      'He had a presentiment about the test he had already finished yesterday.',
+      'Her presentiment was a perfect recording of something that already happened.'
+    ],
+    actuated:[
+      'The stuck gears were actuated by being completely turned off.',
+      'The frozen statue was actuated by standing perfectly still for hours.',
+      'His body was actuated by choosing not to move a single muscle.'
+    ],
+    sojourn:[
+      'Their permanent sojourn in the cabin lasted for the rest of their lives.',
+      'She bought a house during her brief sojourn and never left.',
+      'His lifelong sojourn of eighty years was a quick weekend trip.'
+    ],
+    eclipsed:[
+      'His small bronze medal eclipsed the world champion\'s gold trophy.',
+      'The dim candle eclipsed the blazing midday sun on the beach.',
+      'The beginner eclipsed the master by losing every single game.'
+    ],
+    dyspeptic:[
+      'The dyspeptic chef happily feasted on five-alarm chili every night.',
+      'His dyspeptic stomach easily digested every rich meal without complaint.',
+      'The dyspeptic patient couldn\'t stop eating spicy wings and hot sauce.'
+    ],
+    inveigled:[
+      'He inveigled the guard by shouting threats and waving a sword.',
+      'She inveigled her sister into helping by forcing her at gunpoint.',
+      'The con artist inveigled his victim through honest, direct demands.'
+    ],
+    sprite:[
+      'The enormous sprite crushed houses as it stomped through the village.',
+      'The sprite was a full-grown dragon with leathery wings and sharp claws.',
+      'A hulking sprite weighing two tons tripped over the tiny flowers.'
+    ],
+    demure:[
+      'The demure rock star screamed into the mic and smashed her guitar.',
+      'The demure child kicked, shouted, and threw her toys at the wall.',
+      'His demure entrance included fireworks, trumpets, and a spotlight.'
+    ],
+    deportment:[
+      'Her polished deportment was a pair of muddy sneakers and a ripped t-shirt.',
+      'He showed excellent deportment by burping loudly and chewing with his mouth open.',
+      'Her graceful deportment involved crawling on all fours and barking like a dog.'
+    ],
+    sonorous:[
+      'Her sonorous whisper was so faint nobody within three feet could hear it.',
+      'The sonorous mouse squeaked a tiny, thin sound from under the couch.',
+      'His sonorous voice was high-pitched, squeaky, and barely audible.'
+    ],
+    pithy:[
+      'Her pithy speech rambled on for three hours without making any point.',
+      'The pithy book was a thousand pages of confusing, pointless tangents.',
+      'His pithy comment went on and on, losing everyone in the room.'
+    ],
+    seraph:[
+      'The evil seraph laughed cruelly and tormented the innocent villagers.',
+      'The seraph was a horned demon covered in spikes and fire.',
+      'A wicked seraph plotted to destroy every good thing in the world.'
+    ],
+    albeit:[
+      'She refused to go, albeit she eagerly showed up right on time.',
+      'He didn\'t help at all, albeit he did every bit of the work.',
+      'The cabin was perfect, albeit it was falling apart and completely uninhabitable.'
+    ],
+    discomfiture:[
+      'To her great discomfiture, she won the grand prize and a huge trophy.',
+      'His discomfiture grew as he received more and more praise from everyone.',
+      'Her discomfiture came from being applauded by a cheering crowd.'
+    ],
+    cultivated:[
+      'She cultivated her garden by ignoring it and letting weeds take over.',
+      'He cultivated his skills by refusing to practice or study ever.',
+      'The farmer cultivated his fields by paving them with thick concrete.'
+    ],
+    entreated:[
+      'He entreated her by coldly commanding her to obey his orders.',
+      'She entreated them through stern threats and angry demands.',
+      'The child entreated his mom by stomping his foot and yelling rudely.'
+    ],
+    precarious:[
+      'The precarious foundation had stood rock-solid for a thousand years.',
+      'Her precarious position on the sturdy ground was perfectly safe.',
+      'The precarious bridge was newly built and guaranteed to last forever.'
+    ],
+    rendered:[
+      'The shocking news rendered her completely unchanged and unbothered.',
+      'The bright light rendered the room perfectly dark and pitch-black.',
+      'His kind words rendered her feeling exactly the same as before.'
+    ],
+    sear:[
+      'The sear spring leaves burst out fresh, green, and full of life.',
+      'The sear wheat in the field was lush, moist, and growing beautifully.',
+      'The sear meadow was bright with brand new, emerald grass.'
+    ],
+    instinctively:[
+      'He instinctively solved the puzzle after weeks of careful study.',
+      'She instinctively reacted only after thinking very carefully for an hour.',
+      'Instinctively, he consulted the instruction manual for ten minutes first.'
+    ],
+    contortions:[
+      'His contortions consisted of standing perfectly straight without moving.',
+      'The dancer\'s impressive contortions were stiff, unbending poses.',
+      'Her contortions were the same boring straight-line she always held.'
+    ],
+    laudable:[
+      'His laudable crime spree shocked and horrified the entire town.',
+      'The laudable bully stole lunch money and tormented younger kids.',
+      'Her laudable lie convinced everyone she had done nothing wrong.'
+    ],
+    tableau:[
+      'The loud, fast-moving tableau featured actors running and shouting wildly.',
+      'The tableau moved around constantly, never staying still for a second.',
+      'The rowdy tableau involved a full dance routine with pyrotechnics.'
+    ],
+    inclination:[
+      'Her strong inclination to exercise kept her glued to the couch all day.',
+      'His inclination toward kindness made him yell cruelly at everyone.',
+      'Her inclination for music meant she never touched an instrument.'
     ]
   };
   const wordWrongs=WRONG_SENTENCES[entry.word];
@@ -3177,8 +3643,11 @@ function showRoundSummary(){
   }
   const hasNext=!isComplete;
 
-  // Wizard SVG on summary
-  const wizSvg=buildWizard(getWizardSvgOpts('_sum'));
+  // Wizard on summary — use pixel sprite if available, else SVG
+  const usePixelSum=!!(WIZARD_SPRITES&&WIZARD_SPRITES.breathingIdle);
+  const wizHtml=usePixelSum
+    ?'<div class="sum-pixel-wizard"><canvas id="sumPixelCanvas" class="pixel-canvas" width="64" height="64"></canvas></div>'
+    :'<div style="width:120px;height:160px;margin:0 auto 10px">'+buildWizard(getWizardSvgOpts('_sum'))+'</div>';
 
   const sumTitle=S.quizMode
     ?(isComplete?'Weekly Quiz Complete!':('Part 1 Complete! \uD83C\uDFA4'))
@@ -3186,7 +3655,7 @@ function showRoundSummary(){
 
   const c=document.getElementById('sumCard');
   c.innerHTML=`
-    <div style="width:120px;height:160px;margin:0 auto 10px">${wizSvg}</div>
+    ${wizHtml}
     <div style="font-size:2.5rem;margin-bottom:6px">${isComplete?'\uD83C\uDFC6':'\uD83C\uDFA4'}</div>
     <div class="sum-title">${sumTitle}</div>
     <div class="sum-rank">${rank}</div>
@@ -3214,6 +3683,26 @@ function showRoundSummary(){
     </div>
   `;
   showScreen('sumScreen');
+  // Start pixel wizard animation on summary canvas
+  if(usePixelSum){
+    const sc=document.getElementById('sumPixelCanvas');
+    if(sc){
+      if(_pxSumAnim){_pxSumAnim.stop()}
+      // Play hurricane kick celebration if good streak, then loop breathing idle
+      if(S.bestStreak>=3&&WIZARD_SPRITES.hurricaneKick){
+        // Repeat hurricane kick frames 4x then transition to idle
+        const kickFrames=[...WIZARD_SPRITES.hurricaneKick.south,...WIZARD_SPRITES.hurricaneKick.south,...WIZARD_SPRITES.hurricaneKick.south,...WIZARD_SPRITES.hurricaneKick.south];
+        _pxSumAnim=new SpriteAnimator(sc,{fps:5,loop:false,onComplete:()=>{
+          _pxSumAnim=new SpriteAnimator(sc,{fps:4,loop:true});
+          _pxSumAnim.loadFrames(WIZARD_SPRITES.breathingIdle.south).then(a=>a.play());
+        }});
+        _pxSumAnim.loadFrames(kickFrames).then(a=>a.play());
+      } else {
+        _pxSumAnim=new SpriteAnimator(sc,{fps:4,loop:true});
+        _pxSumAnim.loadFrames(WIZARD_SPRITES.breathingIdle.south).then(a=>a.play());
+      }
+    }
+  }
 }
 
 function practiceMissed(){
@@ -4099,8 +4588,22 @@ function hasPower(name){return S.activePowers.some(p=>p.name===name)}
 function updateMiniWizard(){
   const el=document.getElementById('hudWizard');
   if(!el)return;
-  const opts=getWizardSvgOpts('_mini');
-  el.innerHTML=`<div class="hw-svg">${buildWizard(opts)}</div>`;
+  // Use animated pixel sprite if available, else fall back to SVG
+  if(WIZARD_SPRITES && WIZARD_SPRITES.breathingIdle){
+    if(!_pxHudAnim){
+      const wrap=document.createElement('div');wrap.className='hw-pixel';
+      const cvs=document.createElement('canvas');cvs.id='hudPixelCanvas';cvs.className='pixel-canvas';cvs.width=64;cvs.height=64;
+      wrap.appendChild(cvs);el.textContent='';el.appendChild(wrap);
+      _pxHudAnim=new SpriteAnimator(cvs,{fps:4,loop:true});
+      _pxHudAnim.loadFrames(WIZARD_SPRITES.breathingIdle.south).then(a=>a.play());
+    }
+  } else {
+    const opts=getWizardSvgOpts('_mini');
+    el.textContent='';
+    const d=document.createElement('div');d.className='hw-svg';
+    d.insertAdjacentHTML('afterbegin',buildWizard(opts));
+    el.appendChild(d);
+  }
 }
 
 function updateShopWizard(){
