@@ -203,6 +203,9 @@ body{
 
 /* Week group headers */
 .week-group{margin-bottom:14px}
+.week-group.collapsed .ch-grid{display:none}
+.week-group.collapsed .week-toggle::before{content:'▸ '}
+.week-group:not(.collapsed) .week-toggle::before{content:'▾ '}
 .week-header{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:8px;padding:8px 12px;
@@ -2475,14 +2478,21 @@ function buildChapters(){
   ];
   weeks.forEach(w=>{
     const allOn=w.defaultOn;
-    g.innerHTML+=`<div class="week-group">
-      <div class="week-header ${w.cls}" onclick="toggleWeek(this)">
+    const collapsed=!allOn;
+    g.innerHTML+=`<div class="week-group${collapsed?' collapsed':''}">
+      <div class="week-header ${w.cls}" onclick="${collapsed?'expandWeek(this)':'toggleWeek(this)'}">
         <span><span class="week-badge ${w.badge}">${w.badge==='now'?'Current':'Review'}</span> ${w.label} (Ch ${w.chs[0]}\u2013${w.chs[w.chs.length-1]})</span>
-        <span class="week-toggle">${allOn?'tap to deselect':'tap to select'}</span>
+        <span class="week-toggle">${allOn?'tap to deselect':'tap to expand'}</span>
       </div>
       <div class="ch-grid">${w.chs.map(ch=>`<input type="checkbox" class="ch-input" id="c${ch}" value="${ch}" ${allOn?'checked':''} onchange="updateMultDisplay()"><label class="ch-label" for="c${ch}"><span class="ch-dot">\u2713</span>Ch ${ch}</label>`).join('')}</div>
     </div>`;
   });
+}
+function expandWeek(header){
+  const group=header.parentElement;
+  group.classList.remove('collapsed');
+  header.setAttribute('onclick','toggleWeek(this)');
+  header.querySelector('.week-toggle').textContent='tap to select';
 }
 function toggleWeek(header){
   const grid=header.nextElementSibling;
