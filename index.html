@@ -1260,11 +1260,11 @@ body{
 // matchWords = bold words (matching game)
 // sentenceWords = starred* words (sentence challenge)
 const WEEKLY_QUIZ={
-  label:'Ch 19–24 Quiz',
-  matchWords:['sated','sagely','arduous','capricious','pervade',
-    'harrowing','countenance','sojourn','eclipsed','demure',
-    'pithy','seraph','albeit','laudable','inclination'],
-  sentenceWords:['sagely','arduous','capricious','pithy','precarious']
+  label:'Ch 25–30 Quiz',
+  matchWords:['recourse','ingratiatingly','precedence','nom de plume',
+    'subjective','vim','implicitly','parsed','haughtily',
+    'abashed','prima donna','epoch','refrain','retaliatory','rue'],
+  sentenceWords:['precedence','subjective','parsed','abashed','refrain']
 };
 
 // ===== DATA =====
@@ -1412,6 +1412,54 @@ const VOCAB={
     {word:'laudable',pos:'adj.',def:'praiseworthy; commendable'},
     {word:'tableau',pos:'n.',def:'a frozen scene (usually from history or literature)'},
     {word:'inclination',pos:'n.',def:'leaning; partiality'}
+  ],
+  25:[
+    {word:'bevy',pos:'n.',def:'group'},
+    {word:'recourse',pos:'n.',def:'a source of help; refuge'},
+    {word:'inscrutable',pos:'adj.',def:'mysterious; incomprehensible'},
+    {word:'unwarranted',pos:'adj.',def:'groundless; unjustified'},
+    {word:'cogitation',pos:'n.',def:'consideration; serious thought'},
+    {word:'ingratiatingly',pos:'adv.',def:'in a pleasing or flattering manner'}
+  ],
+  26:[
+    {word:'precedence',pos:'n.',def:'priority in time, order, or importance'},
+    {word:'behooved',pos:'v.',def:'required; compelled'},
+    {word:'complacent',pos:'adj.',def:'self-satisfied; smug'},
+    {word:'imposing',pos:'adj.',def:'impressive in appearance, formidable'},
+    {word:'opined',pos:'v.',def:'held or expressed as an opinion'},
+    {word:'nom de plume',pos:'n.',def:'pen name; pseudonym'}
+  ],
+  27:[
+    {word:'subjective',pos:'adj.',def:'personal; nonobjective'},
+    {word:'coruscations',pos:'n.',def:'flashes; sparkles'},
+    {word:'vim',pos:'n.',def:'strength; energy'},
+    {word:'scrutinizingly',pos:'adv.',def:'with close test; piercingly'},
+    {word:'implicitly',pos:'adv.',def:'unquestioningly; without doubt'},
+    {word:'veracity',pos:'n.',def:'truthfulness; honesty'}
+  ],
+  28:[
+    {word:'parsed',pos:'v.',def:'dissected; broken down'},
+    {word:'allayed',pos:'v.',def:'relieved; alleviated'},
+    {word:'succumbed',pos:'v.',def:'yielded; surrendered'},
+    {word:'haughtily',pos:'adv.',def:'in an arrogantly self-admiring or prideful manner'},
+    {word:'wonted',pos:'adj.',def:'usual; customary'},
+    {word:'sceptically',pos:'adv.',def:'in a questioning manner; doubtingly'}
+  ],
+  29:[
+    {word:'canto',pos:'n.',def:'a division of a long poem'},
+    {word:'abashed',pos:'adj.',def:'embarrassed, disconcerted'},
+    {word:'prima donna',pos:'n.',def:'leading female soloist in an opera'},
+    {word:'prosaic',pos:'adj.',def:'unromantic, dull'},
+    {word:'quaint',pos:'adj.',def:'unusual, odd'},
+    {word:'epoch',pos:'n.',def:'noteworthy, memorable event'}
+  ],
+  30:[
+    {word:'refrain',pos:'v.',def:'to avoid doing; to abstain'},
+    {word:'tacitly',pos:'adv.',def:'in a manner that is implied without being stated, silently'},
+    {word:'evinced',pos:'v.',def:'made evident, displayed'},
+    {word:'spasmodic',pos:'adj.',def:'convulsive; given to fits'},
+    {word:'retaliatory',pos:'adj.',def:'punishing, vengeful'},
+    {word:'rue',pos:'v.',def:'to regret'}
   ]
 };
 
@@ -1523,7 +1571,43 @@ const SENTENCES={
   contortions:['The gymnast\'s amazing ___WORD___ drew gasps from the crowd.','He went through strange ___WORD___ trying to reach the itch on his back.'],
   laudable:['Her ___WORD___ effort to help the younger students earned her an award.','Volunteering at the shelter was a truly ___WORD___ act of kindness.'],
   tableau:['The children formed a Christmas ___WORD___ on the schoolhouse stage.','The museum\'s ___WORD___ showed pioneers cooking over an open fire.'],
-  inclination:['She had a natural ___WORD___ for painting and drawing.','His ___WORD___ toward kindness made everyone love him.']
+  inclination:['She had a natural ___WORD___ for painting and drawing.','His ___WORD___ toward kindness made everyone love him.'],
+  bevy:['A ___WORD___ of excited fans crowded the stage door after the concert.','A ___WORD___ of quail burst from the tall grass beside the road.'],
+  recourse:['Without any other ___WORD___, she turned to the librarian for help.','The stranded hikers had no ___WORD___ but to wait for rescue.'],
+  inscrutable:['The cat\'s ___WORD___ expression made it impossible to tell what it wanted.','Her ___WORD___ smile gave nothing away during the card game.'],
+  unwarranted:['His ___WORD___ criticism of the painting hurt the young artist deeply.','The teacher said the punishment was ___WORD___ since nobody had broken a rule.'],
+  cogitation:['After much ___WORD___, she finally decided which college to attend.','He sat in deep ___WORD___, staring at the chessboard for ten minutes.'],
+  ingratiatingly:['The salesman smiled ___WORD___, trying to charm the reluctant customer.','She ___WORD___ offered to carry the teacher\'s books to the car.'],
+  precedence:['Safety always takes ___WORD___ over speed when driving in the rain.','The urgent project was given ___WORD___ over all other assignments.'],
+  behooved:['It ___WORD___ the students to study hard before the final exam.','It ___WORD___ him to apologize before the situation got any worse.'],
+  complacent:['The team became ___WORD___ after winning five games in a row.','She warned him not to grow ___WORD___ just because things were going well.'],
+  imposing:['The ___WORD___ castle loomed over the village with its tall stone towers.','The principal was an ___WORD___ figure who commanded respect from everyone.'],
+  opined:['The critic ___WORD___ that the movie was the worst of the year.','She ___WORD___ that pizza was the greatest invention in human history.'],
+  'nom de plume':['Mark Twain was the ___WORD___ of Samuel Clemens.','The mystery author published under a ___WORD___ to protect her identity.'],
+  subjective:['Whether a song is good or bad is entirely ___WORD___.','Art appreciation is ___WORD___; what one person loves, another may dislike.'],
+  coruscations:['The ___WORD___ of the diamonds under the chandelier dazzled everyone.','___WORD___ of lightning lit up the night sky during the storm.'],
+  vim:['She attacked the cleaning project with remarkable ___WORD___ and energy.','The puppy chased the ball with tireless ___WORD___.'],
+  scrutinizingly:['The detective looked ___WORD___ at each clue spread across the table.','She ___WORD___ examined the painting, searching for hidden brushstrokes.'],
+  implicitly:['The soldiers trusted their captain ___WORD___, following every order without question.','She ___WORD___ believed her grandmother\'s promise that everything would work out.'],
+  veracity:['The journalist was known for the ___WORD___ of her reporting.','They questioned the ___WORD___ of his wild story about meeting a bear.'],
+  parsed:['The English class ___WORD___ the difficult poem line by line.','She carefully ___WORD___ his email, looking for any hidden meaning.'],
+  allayed:['The doctor\'s kind words ___WORD___ the patient\'s fears about the surgery.','A warm cup of tea ___WORD___ her anxiety before the performance.'],
+  succumbed:['After a long battle, the old tree finally ___WORD___ to the storm.','She ___WORD___ to temptation and ate the last cookie.'],
+  haughtily:['The queen ___WORD___ refused to speak to anyone below her rank.','She ___WORD___ flipped her hair and walked past without a word.'],
+  wonted:['The cat returned to its ___WORD___ spot on the windowsill.','With his ___WORD___ calm, the old farmer surveyed the morning fields.'],
+  sceptically:['She ___WORD___ raised an eyebrow when he claimed to have finished all his homework.','The audience listened ___WORD___ to the magician\'s explanation of his trick.'],
+  canto:['They read the first ___WORD___ of the epic poem aloud in class.','Each ___WORD___ of the poem told a different part of the hero\'s journey.'],
+  abashed:['He was deeply ___WORD___ when he realized he had called the teacher "Mom."','The ___WORD___ girl turned bright red after tripping on stage.'],
+  'prima donna':['The ___WORD___ received a standing ovation after her stunning performance.','She acted like a total ___WORD___, demanding a private dressing room.'],
+  prosaic:['The ___WORD___ reality of doing laundry was a far cry from her daydreams.','After all the exciting buildup, the ending of the story was disappointingly ___WORD___.'],
+  quaint:['The ___WORD___ little shop was full of antique clocks and music boxes.','They stayed in a ___WORD___ cottage with a thatched roof and a garden gate.'],
+  epoch:['The invention of the printing press marked a new ___WORD___ in human history.','Her graduation felt like the beginning of an entirely new ___WORD___.'],
+  refrain:['The teacher asked the class to ___WORD___ from talking during the test.','Please ___WORD___ from using your phone during the movie.'],
+  tacitly:['She ___WORD___ agreed to the plan by nodding slightly without saying a word.','The rules were ___WORD___ understood, even though nobody had written them down.'],
+  evinced:['His wide smile ___WORD___ the joy he felt at seeing his old friend.','She ___WORD___ no interest in the gossip, staring out the window instead.'],
+  spasmodic:['The old engine gave a few ___WORD___ coughs before finally starting.','His ___WORD___ laughter came in short, uncontrollable bursts.'],
+  retaliatory:['The ___WORD___ prank war between the two classes lasted the entire semester.','She launched a ___WORD___ snowball after being hit square in the back.'],
+  rue:['He would ___WORD___ the day he decided to skip studying for the final exam.','She began to ___WORD___ her harsh words as soon as she saw her friend\'s face.']
 };
 
 // ===== BOOK CONTEXT QUOTES (Anne of Green Gables style) =====
@@ -1635,7 +1719,43 @@ const BOOK_QUOTES={
   contortions:'The contortions of Anne\'s face as she tasted the bitter medicine made Marilla laugh in spite of herself.',
   laudable:'Miss Stacy called Anne\'s determination a truly laudable quality that would serve her well in life.',
   tableau:'The schoolchildren presented a Christmas tableau of the nativity, with Anne as a radiant angel.',
-  inclination:'Matthew always had an inclination to spoil Anne, no matter what Marilla said about strictness.'
+  inclination:'Matthew always had an inclination to spoil Anne, no matter what Marilla said about strictness.',
+  bevy:'A bevy of Avonlea ladies descended on Green Gables for the Aid Society meeting, filling every chair in the parlor.',
+  recourse:'With no other recourse, Anne threw herself on Marilla\'s mercy and confessed the whole sorry affair.',
+  inscrutable:'Matthew\'s inscrutable expression hid a quiet pride in Anne that words could never capture.',
+  unwarranted:'Marilla considered Anne\'s outburst at Mrs. Lynde entirely unwarranted, even if Mrs. Lynde had been tactless.',
+  cogitation:'After much cogitation by the fireside, Marilla decided that Anne should be allowed to keep the kitten after all.',
+  ingratiatingly:'Davy tried to smile ingratiatingly at Marilla after tracking mud across her freshly scrubbed kitchen floor.',
+  precedence:'Marilla insisted that homework must always take precedence over Anne\'s flights of fancy in the garden.',
+  behooved:'It behooved Anne to mind her tongue at the minister\'s dinner, though the effort nearly killed her.',
+  complacent:'Anne grew complacent about her spelling after three perfect tests, and promptly misspelled "chrysanthemum."',
+  imposing:'The imposing new schoolmaster stood a full head taller than anyone in Avonlea and rarely smiled.',
+  opined:'Mrs. Lynde opined loudly that red hair was a sure sign of a fiery temper, much to Anne\'s fury.',
+  'nom de plume':'Anne decided her nom de plume would be Cordelia Fitzgerald, far more romantic than plain Anne Shirley.',
+  subjective:'Miss Stacy reminded the class that beauty is subjective, which comforted Anne about her red hair somewhat.',
+  coruscations:'The coruscations of frost on the windowpane made Anne gasp with delight that December morning.',
+  vim:'Anne tackled the Queen\'s entrance examinations with a vim that left even Gilbert Blythe impressed.',
+  scrutinizingly:'Marilla looked scrutinizingly at the cake Anne had baked, suspecting the vanilla had been swapped for liniment.',
+  implicitly:'Diana trusted Anne implicitly, even when Anne\'s plans involved midnight rowboat rides and haunted woods.',
+  veracity:'Marilla questioned the veracity of Anne\'s tale about the ghost in the Haunted Wood, and rightly so.',
+  parsed:'Miss Stacy parsed the difficult passage from Shakespeare until even the slowest student understood it.',
+  allayed:'Matthew\'s quiet smile allayed Anne\'s fears that he might be disappointed in her examination results.',
+  succumbed:'Marilla finally succumbed to Anne\'s pleading and allowed puffed sleeves on her new Sunday dress.',
+  haughtily:'Josie Pye haughtily informed everyone that her dress fabric came all the way from Montreal.',
+  wonted:'Anne returned to her wonted seat by the east window, gazing out at the snowy fields of Avonlea.',
+  sceptically:'Marilla listened sceptically as Anne explained how the mouse had somehow gotten into the pudding sauce.',
+  canto:'Anne read aloud the first canto of her favorite poem, her voice trembling with emotion.',
+  abashed:'Anne was deeply abashed when she discovered she had pinned her bouquet upside down at the concert.',
+  'prima donna':'Anne fancied herself the prima donna of the school concert, rehearsing her recitation a hundred times.',
+  prosaic:'The prosaic chore of peeling potatoes could not dampen Anne\'s soaring imagination that afternoon.',
+  quaint:'The quaint old bridge over the brook was Anne\'s favorite spot for daydreaming on summer afternoons.',
+  epoch:'Anne declared that meeting Diana Barry marked a new epoch in her life, the epoch of true friendship.',
+  refrain:'Marilla urged Anne to refrain from dramatizing every small event, though she knew it was hopeless.',
+  tacitly:'Matthew tacitly approved of Anne\'s ambitions by slipping her extra money for books without a word.',
+  evinced:'Anne evinced not the slightest interest in Gilbert\'s attempts at reconciliation, much to Diana\'s despair.',
+  spasmodic:'Anne\'s spasmodic sobs shook her thin shoulders as she wept over her ruined cake.',
+  retaliatory:'Anne\'s retaliatory crack of her slate over Gilbert\'s head echoed through the schoolroom that fateful day.',
+  rue:'Anne would rue the day she let her temper get the better of her at the Blythe boy\'s expense.'
 };
 
 // ===== TEACH IT BACK DATA =====
@@ -1747,7 +1867,43 @@ const TEACH_HINTS={
   contortions:{best:'Twisted, unnatural body positions',vague:'Movements you can see',wrong:'Perfectly straight, stiff postures'},
   laudable:{best:'Deserving of praise and admiration',vague:'A good kind of thing',wrong:'Deserving scorn and harsh criticism'},
   tableau:{best:'A silent, frozen scene like a living picture',vague:'A display of some kind',wrong:'A fast-paced action movie scene'},
-  inclination:{best:'A natural tendency or preference',vague:'A thing about a person',wrong:'A strong dislike or aversion to something'}
+  inclination:{best:'A natural tendency or preference',vague:'A thing about a person',wrong:'A strong dislike or aversion to something'},
+  bevy:{best:'A large group, often of people or birds',vague:'Some things together',wrong:'A single, solitary individual standing alone'},
+  recourse:{best:'A source of help or refuge when in trouble',vague:'Something you can use',wrong:'A fun hobby you do for entertainment'},
+  inscrutable:{best:'Impossible to read or understand',vague:'Hard to deal with',wrong:'Totally obvious and easy to figure out'},
+  unwarranted:{best:'Not justified or deserved, groundless',vague:'Something that happened',wrong:'Completely fair and well-earned'},
+  cogitation:{best:'Deep, serious thinking and consideration',vague:'Something going on in your head',wrong:'A quick decision made without any thought'},
+  ingratiatingly:{best:'In a flattering way meant to win someone over',vague:'A way of acting toward people',wrong:'In a rude, insulting manner'},
+  precedence:{best:'Being ranked first in importance or order',vague:'Where something falls in a list',wrong:'Coming dead last with the lowest priority'},
+  behooved:{best:'Was necessary or required of someone',vague:'Had to do with what someone did',wrong:'Was totally optional and unnecessary'},
+  complacent:{best:'Smugly satisfied and not trying to improve',vague:'Feeling okay about things',wrong:'Deeply worried and striving to do better'},
+  imposing:{best:'Grand and impressive in size or appearance',vague:'Something about how it looks',wrong:'Tiny, delicate, and easy to overlook'},
+  opined:{best:'Stated a personal opinion or belief',vague:'Said something',wrong:'Reported a proven scientific fact'},
+  'nom de plume':{best:'A fake name an author writes under',vague:'A kind of name',wrong:'The real birth name on your ID card'},
+  subjective:{best:'Based on personal feelings, not facts',vague:'A way of seeing things',wrong:'Purely factual with zero personal bias'},
+  coruscations:{best:'Brilliant flashes or sparkles of light',vague:'Things you can see',wrong:'Dull, dark shadows with no light at all'},
+  vim:{best:'Lively energy and enthusiasm',vague:'A quality someone has',wrong:'Total exhaustion and laziness'},
+  scrutinizingly:{best:'Examining very closely and carefully',vague:'Looking at something',wrong:'Glancing quickly without paying attention'},
+  implicitly:{best:'Without any doubt or questioning',vague:'In a certain way',wrong:'With constant suspicion and distrust'},
+  veracity:{best:'Truthfulness and accuracy of statements',vague:'Something about what was said',wrong:'Lies and deliberate dishonesty'},
+  parsed:{best:'Broke down into parts to understand',vague:'Did something to it',wrong:'Threw it together without any analysis'},
+  allayed:{best:'Calmed or relieved fears and worries',vague:'Changed how someone felt',wrong:'Made someone even more anxious and afraid'},
+  succumbed:{best:'Gave in or surrendered to a force',vague:'Something that happened to them',wrong:'Fought back and won a total victory'},
+  haughtily:{best:'With proud, arrogant superiority',vague:'In a certain attitude',wrong:'With humble, shy modesty'},
+  wonted:{best:'Usual, customary, what is expected',vague:'A way something is',wrong:'Brand new, never seen before'},
+  sceptically:{best:'With doubt and questioning disbelief',vague:'Reacting to something',wrong:'With total trust and zero doubt'},
+  canto:{best:'A major section or chapter of a long poem',vague:'Part of a written work',wrong:'A single word in a short sentence'},
+  abashed:{best:'Embarrassed and uncomfortable from shame',vague:'Feeling a certain way',wrong:'Proud, confident, and showing off'},
+  'prima donna':{best:'The lead female singer in an opera',vague:'A person who performs',wrong:'A stagehand who works behind the scenes'},
+  prosaic:{best:'Dull, ordinary, lacking imagination',vague:'A kind of quality',wrong:'Wildly exciting and full of wonder'},
+  quaint:{best:'Charmingly unusual or old-fashioned',vague:'A way to describe something',wrong:'Ultra-modern and cutting-edge'},
+  epoch:{best:'A major period marked by a memorable event',vague:'A time in history',wrong:'A single boring second that nobody noticed'},
+  refrain:{best:'To hold yourself back from doing something',vague:'Something about an action',wrong:'To eagerly rush into doing something'},
+  tacitly:{best:'Understood without being spoken aloud',vague:'A way of communicating',wrong:'Shouted loudly for everyone to hear'},
+  evinced:{best:'Showed or revealed clearly',vague:'Did something visible',wrong:'Hid completely so nobody could tell'},
+  spasmodic:{best:'Happening in sudden, irregular bursts',vague:'A way something moves',wrong:'Smooth, steady, and perfectly even'},
+  retaliatory:{best:'Done as payback or revenge',vague:'A type of action',wrong:'Done as a generous, unprovoked gift'},
+  rue:{best:'To feel deep regret about something',vague:'A feeling about the past',wrong:'To celebrate something with great joy'}
 };
 const TEACH_SENTENCES={
   admonished:{best:'The teacher admonished the students for talking during the test.',awkward:'She admonished him and then they went home.',wrong:'He admonished his friend with a warm hug and a gift.'},
@@ -1857,7 +2013,43 @@ const TEACH_SENTENCES={
   contortions:{best:'The yoga teacher twisted her body into impossible contortions.',awkward:'The contortions were part of the performance.',wrong:'His contortions consisted of standing perfectly straight and still.'},
   laudable:{best:'Her laudable effort to help the homeless shelter earned community praise.',awkward:'The laudable action was noticed by the group.',wrong:'His laudable crime spree shocked and horrified the entire town.'},
   tableau:{best:'The students formed a silent tableau representing the first Thanksgiving.',awkward:'The tableau was set up in the main hall.',wrong:'The noisy, fast-moving tableau featured actors running and shouting.'},
-  inclination:{best:'She has always had an inclination toward music and poetry.',awkward:'His inclination was clear to those who knew him.',wrong:'Her strong inclination to exercise kept her from ever leaving the couch.'}
+  inclination:{best:'She has always had an inclination toward music and poetry.',awkward:'His inclination was clear to those who knew him.',wrong:'Her strong inclination to exercise kept her from ever leaving the couch.'},
+  bevy:{best:'A bevy of cheerleaders rushed onto the field after the winning goal.',awkward:'The bevy was there during the afternoon.',wrong:'A bevy of one single person stood alone in the empty room.'},
+  recourse:{best:'With no other recourse, the lost hiker signaled for help with a flare.',awkward:'Her recourse was something she thought about.',wrong:'His favorite recourse on weekends was playing video games for fun.'},
+  inscrutable:{best:'The detective\'s inscrutable face revealed nothing about what he knew.',awkward:'The inscrutable thing puzzled everyone there.',wrong:'Her inscrutable expression clearly showed exactly how happy she was.'},
+  unwarranted:{best:'The unwarranted accusation hurt him because he had done nothing wrong.',awkward:'The unwarranted action was discussed afterward.',wrong:'The unwarranted praise was well-deserved after her excellent work.'},
+  cogitation:{best:'After hours of cogitation, the scientist finally solved the equation.',awkward:'His cogitation lasted for quite some time.',wrong:'Without any cogitation, she carefully analyzed every detail for weeks.'},
+  ingratiatingly:{best:'He smiled ingratiatingly at the judge, hoping for a lighter sentence.',awkward:'She spoke ingratiatingly during the conversation.',wrong:'He ingratiatingly insulted the host and stormed out of the party.'},
+  precedence:{best:'Emergency patients are given precedence over routine checkups.',awkward:'The precedence of the matter was clear to all.',wrong:'The least important item was given precedence by being handled dead last.'},
+  behooved:{best:'It behooved the hikers to bring extra water for the desert trail.',awkward:'It behooved them to act during the situation.',wrong:'It behooved her to skip studying, since the exam was tomorrow.'},
+  complacent:{best:'The team grew complacent after their winning streak and lost the finals.',awkward:'He was complacent about the results that came in.',wrong:'She was so complacent that she worried constantly and never relaxed.'},
+  imposing:{best:'The imposing statue towered thirty feet above the town square.',awkward:'The imposing structure was seen by visitors.',wrong:'The imposing ant was so tiny you needed a magnifying glass to see it.'},
+  opined:{best:'The food critic opined that the restaurant served the best pasta in the city.',awkward:'She opined about the topic at the gathering.',wrong:'The scientist opined a mathematical formula that was proven in a lab.'},
+  'nom de plume':{best:'The famous author\'s nom de plume kept her true identity secret for decades.',awkward:'The nom de plume was used by the writer.',wrong:'Her nom de plume was the real name printed on her birth certificate.'},
+  subjective:{best:'Movie reviews are subjective — what you love, someone else might hate.',awkward:'The subjective nature of it was discussed.',wrong:'The subjective math answer was the same no matter who solved it.'},
+  coruscations:{best:'The coruscations of the fireworks lit up the whole harbor.',awkward:'The coruscations were seen that evening.',wrong:'The coruscations of the dark, unlit room were impossible to see.'},
+  vim:{best:'She organized the fundraiser with such vim that they raised double their goal.',awkward:'His vim was noticed by everyone at the event.',wrong:'His vim was obvious as he slept through the entire afternoon.'},
+  scrutinizingly:{best:'The jeweler looked scrutinizingly at the diamond through her magnifying glass.',awkward:'He scrutinizingly observed the scene before him.',wrong:'She scrutinizingly glanced away, ignoring every single detail.'},
+  implicitly:{best:'The troops followed the general implicitly, never once questioning an order.',awkward:'She implicitly went along with the plan.',wrong:'He implicitly doubted everything, questioning each step along the way.'},
+  veracity:{best:'The lawyer challenged the veracity of the witness\'s story in court.',awkward:'The veracity of the claim was considered.',wrong:'The veracity of his lies was impressive and deeply dishonest.'},
+  parsed:{best:'The grammar teacher parsed the sentence into subject, verb, and object.',awkward:'The text was parsed during the class session.',wrong:'He parsed the book by throwing it away without reading a single page.'},
+  allayed:{best:'Her mother\'s calm voice allayed her fears about starting at a new school.',awkward:'The concerns were allayed after the meeting.',wrong:'The scary movie allayed his fears, leaving him terrified all night.'},
+  succumbed:{best:'After resisting all day, she finally succumbed to the tempting chocolate cake.',awkward:'He succumbed during the difficult period.',wrong:'She succumbed to the challenge by defeating it easily and winning.'},
+  haughtily:{best:'The princess haughtily turned her nose up at the simple village food.',awkward:'She haughtily responded to the question asked.',wrong:'He haughtily bowed low, humbly thanking everyone for their kindness.'},
+  wonted:{best:'Every morning, the old professor took his wonted walk around the campus.',awkward:'Her wonted behavior was familiar to everyone.',wrong:'His wonted routine was something brand new he had never tried before.'},
+  sceptically:{best:'She listened sceptically to his excuse about the dog eating his homework.',awkward:'He sceptically considered the information presented.',wrong:'She sceptically believed every word without a single doubt.'},
+  canto:{best:'The class spent a whole week studying the second canto of the epic poem.',awkward:'The canto was part of what they read in class.',wrong:'The short canto was a single three-word sentence.'},
+  abashed:{best:'He felt abashed when he realized he had been waving at a total stranger.',awkward:'The abashed student sat quietly in the room.',wrong:'She was abashed by her victory, proudly holding up the trophy.'},
+  'prima donna':{best:'The prima donna\'s voice soared through the opera house during the final aria.',awkward:'The prima donna performed at the event that night.',wrong:'The prima donna quietly moved scenery backstage where nobody could see.'},
+  prosaic:{best:'After her exciting vacation, returning to prosaic daily chores felt unbearable.',awkward:'The prosaic nature of it was noted by everyone.',wrong:'The prosaic fireworks show was the most thrilling event of the year.'},
+  quaint:{best:'The quaint bookshop had creaky wooden floors and shelves reaching the ceiling.',awkward:'The quaint place was visited by tourists.',wrong:'The quaint skyscraper was a modern glass tower with ninety floors.'},
+  epoch:{best:'The moon landing marked a new epoch in the history of exploration.',awkward:'The epoch was discussed in the history class.',wrong:'The boring epoch lasted only five forgettable seconds.'},
+  refrain:{best:'The sign asked visitors to refrain from touching the artwork.',awkward:'She chose to refrain during the afternoon.',wrong:'He refrained from stopping and eagerly charged forward into action.'},
+  tacitly:{best:'By not objecting, the committee tacitly approved the new plan.',awkward:'The agreement was tacitly reached among the group.',wrong:'She tacitly screamed her opinion at the top of her lungs.'},
+  evinced:{best:'The child evinced her excitement by jumping up and down.',awkward:'He evinced something during the conversation.',wrong:'She evinced her happiness by hiding every emotion perfectly.'},
+  spasmodic:{best:'The old car\'s spasmodic engine sputtered and jerked down the road.',awkward:'The spasmodic movement was noticed by observers.',wrong:'The spasmodic metronome kept a perfectly steady, even beat.'},
+  retaliatory:{best:'After being pranked, she launched a retaliatory water balloon attack.',awkward:'The retaliatory action followed the incident.',wrong:'His retaliatory gift was a kind, unprovoked act of generosity.'},
+  rue:{best:'He will rue the day he challenged the chess champion to a match.',awkward:'She came to rue what happened that afternoon.',wrong:'She will rue winning the lottery and becoming a millionaire.'}
 };
 
 // ===== PRAISE & ENCOURAGEMENT =====
@@ -2276,8 +2468,9 @@ function makeStars(){
 function buildChapters(){
   const g=document.getElementById('chGrid');
   const weeks=[
-    {label:'This Week',badge:'now',cls:'current',chs:[19,20,21,22,23,24],defaultOn:true},
-    {label:'Last Week',badge:'prev',cls:'previous',chs:[13,14,15,16,17,18],defaultOn:false},
+    {label:'This Week',badge:'now',cls:'current',chs:[25,26,27,28,29,30],defaultOn:true},
+    {label:'Last Week',badge:'prev',cls:'previous',chs:[19,20,21,22,23,24],defaultOn:false},
+    {label:'Week 2',badge:'prev',cls:'previous',chs:[13,14,15,16,17,18],defaultOn:false},
     {label:'Week 1',badge:'prev',cls:'previous',chs:[7,8,9,10,11,12],defaultOn:false}
   ];
   weeks.forEach(w=>{
@@ -3139,6 +3332,186 @@ function renderR3(card,entry){
       'Her strong inclination to exercise kept her glued to the couch all day.',
       'His inclination toward kindness made him yell cruelly at everyone.',
       'Her inclination for music meant she never touched an instrument.'
+    ],
+    bevy:[
+      'A bevy of one lonely person sat alone in the empty cafeteria.',
+      'The bevy consisted of a single ant on the sidewalk.',
+      'A bevy of silence filled the noisy, crowded stadium.'
+    ],
+    recourse:[
+      'His favorite recourse on weekends was playing basketball for fun.',
+      'She used her recourse to book a relaxing vacation to the beach.',
+      'The recourse of winning the lottery made all her problems fun.'
+    ],
+    inscrutable:[
+      'Her inscrutable face clearly showed exactly how furious she was.',
+      'The inscrutable message was so simple a toddler could read it.',
+      'His inscrutable diary was an open book that everyone understood.'
+    ],
+    unwarranted:[
+      'The unwarranted award was given because she earned it perfectly.',
+      'His unwarranted raise came after years of excellent performance.',
+      'The unwarranted praise was well-deserved and completely fair.'
+    ],
+    cogitation:[
+      'Without any cogitation, she carefully analyzed every detail for weeks.',
+      'His deep cogitation lasted exactly zero seconds before he blurted it out.',
+      'After much cogitation, she impulsively jumped without thinking at all.'
+    ],
+    ingratiatingly:[
+      'He ingratiatingly insulted the host and threw food on the floor.',
+      'She spoke ingratiatingly by shouting rude demands at the waiter.',
+      'The bully ingratiatingly shoved the younger kids out of his way.'
+    ],
+    precedence:[
+      'Dessert always takes precedence, which is why it is served last.',
+      'The least important task was given the highest precedence.',
+      'His precedence meant he was always the last person served.'
+    ],
+    behooved:[
+      'It behooved her to skip studying, since the exam was the next morning.',
+      'It behooved the swimmer to avoid practicing before the big race.',
+      'It behooved him to ignore the fire alarm and keep sleeping.'
+    ],
+    complacent:[
+      'She was so complacent that she worried constantly and never slept.',
+      'His complacent attitude drove him to practice ten hours a day.',
+      'The complacent student stayed up all night studying out of fear.'
+    ],
+    imposing:[
+      'The imposing ant was nearly invisible without a magnifying glass.',
+      'The imposing kitten fit easily inside a teacup.',
+      'The imposing whisper could barely be heard across the room.'
+    ],
+    opined:[
+      'The scientist opined a mathematical formula proven in the lab.',
+      'He opined the exact weight of the moon down to the gram.',
+      'She opined a chemical equation that could be verified by experiment.'
+    ],
+    'nom de plume':[
+      'His nom de plume was the real name printed on his birth certificate.',
+      'She wrote under her nom de plume, which was her actual legal name.',
+      'The nom de plume on his passport matched his real identity perfectly.'
+    ],
+    subjective:[
+      'The subjective math answer was identical no matter who solved it.',
+      'His subjective measurement of the table was exactly 3.7 meters.',
+      'The subjective boiling point of water is always 100 degrees Celsius.'
+    ],
+    coruscations:[
+      'The coruscations of the pitch-dark room were impossible to see.',
+      'The dull, matte wall produced brilliant coruscations in the dim hallway.',
+      'The coruscations of the unlit basement filled it with blinding light.'
+    ],
+    vim:[
+      'His vim was obvious as he slept through the entire afternoon.',
+      'She approached the task with such vim that she quit after one minute.',
+      'The exhausted runner\'s vim kept him lying motionless on the couch.'
+    ],
+    scrutinizingly:[
+      'She scrutinizingly glanced away, ignoring every detail of the painting.',
+      'He scrutinizingly skipped the whole document without reading a word.',
+      'They scrutinizingly rushed past the evidence without a second look.'
+    ],
+    implicitly:[
+      'He implicitly doubted everything, questioning each step along the way.',
+      'She implicitly distrusted the plan, demanding proof at every stage.',
+      'They implicitly challenged every order, refusing to follow a single one.'
+    ],
+    veracity:[
+      'The veracity of his lies was deeply impressive and thoroughly dishonest.',
+      'The fairy tale was admired for its strict veracity and factual accuracy.',
+      'The veracity of the made-up story was confirmed by fictional sources.'
+    ],
+    parsed:[
+      'He parsed the book by throwing it away without reading a page.',
+      'She parsed the data by mixing it all together into one big pile.',
+      'The student parsed the poem by ignoring every single word.'
+    ],
+    allayed:[
+      'The horror movie allayed his fears, leaving him terrified for weeks.',
+      'The scary thunder allayed the child\'s worries, helping her feel calm.',
+      'The bad news allayed her anxiety, putting her completely at ease.'
+    ],
+    succumbed:[
+      'She succumbed to the challenge by defeating it easily and winning.',
+      'He succumbed to peer pressure by firmly saying no and walking away.',
+      'The fortress succumbed by standing strong and winning the battle.'
+    ],
+    haughtily:[
+      'He haughtily bowed low, humbly thanking everyone for their kindness.',
+      'She haughtily praised the cook, gushing about every single dish.',
+      'They haughtily knelt before the crowd, showing deep respect.'
+    ],
+    wonted:[
+      'His wonted routine was something brand new he had never tried before.',
+      'Her wonted hairstyle was a bold, never-before-seen look.',
+      'The wonted menu featured exotic dishes nobody had ever heard of.'
+    ],
+    sceptically:[
+      'She sceptically believed every word without a single doubt.',
+      'He sceptically accepted the story, trusting it completely.',
+      'They sceptically praised the plan, calling it absolutely perfect.'
+    ],
+    canto:[
+      'The short canto was a single three-word sentence in the poem.',
+      'Each canto was just one line long, making the epic very brief.',
+      'The tiny canto contained the entire novel in a single paragraph.'
+    ],
+    abashed:[
+      'She was abashed by her victory, proudly parading around the room.',
+      'The abashed winner boasted loudly to everyone in earshot.',
+      'He felt abashed after receiving the highest praise from his hero.'
+    ],
+    'prima donna':[
+      'The prima donna quietly moved scenery backstage where nobody could see her.',
+      'The prima donna sat silently in the back row of the chorus.',
+      'The prima donna worked the lights and never once appeared on stage.'
+    ],
+    prosaic:[
+      'The prosaic fireworks show was the most thrilling event of the century.',
+      'Her prosaic adventure involved dragons, time travel, and laser swords.',
+      'The prosaic surprise party left everyone screaming with excitement.'
+    ],
+    quaint:[
+      'The quaint skyscraper had ninety floors of steel and glass.',
+      'The quaint spaceship launched with the latest fusion technology.',
+      'The quaint mega-mall stretched across five city blocks downtown.'
+    ],
+    epoch:[
+      'The boring epoch lasted only five forgettable seconds.',
+      'The epoch was a single unremarkable Tuesday that nobody remembered.',
+      'The tiny epoch lasted less than a minute and changed nothing.'
+    ],
+    refrain:[
+      'He refrained from stopping and eagerly charged forward into action.',
+      'She refrained from hesitating by jumping in immediately.',
+      'The sign asked visitors to refrain by encouraging them to touch everything.'
+    ],
+    tacitly:[
+      'She tacitly screamed her opinion at the top of her lungs.',
+      'He tacitly announced the news with a megaphone in the hallway.',
+      'They tacitly broadcast the secret on the school\'s loudspeaker.'
+    ],
+    evinced:[
+      'She evinced her happiness by hiding every emotion behind a blank stare.',
+      'He evinced his anger by smiling calmly and complimenting everyone.',
+      'The team evinced their disappointment by celebrating wildly.'
+    ],
+    spasmodic:[
+      'The spasmodic metronome kept a perfectly steady, even beat all day.',
+      'Her spasmodic breathing was slow, regular, and deeply relaxing.',
+      'The spasmodic clock ticked at exactly the same rate for hours.'
+    ],
+    retaliatory:[
+      'His retaliatory gift was a kind, unprovoked act of generosity.',
+      'The retaliatory donation to charity came out of pure goodwill.',
+      'Her retaliatory compliment was the first kind word she had ever spoken.'
+    ],
+    rue:[
+      'She will rue winning the lottery and becoming a millionaire.',
+      'He rued the wonderful vacation that made all his dreams come true.',
+      'They rued the delicious meal that satisfied everyone completely.'
     ]
   };
   const wordWrongs=WRONG_SENTENCES[entry.word];
